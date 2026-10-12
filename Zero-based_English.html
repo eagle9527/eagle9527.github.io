@@ -412,6 +412,7 @@ body {
                     <div class="route-step"><strong>小学阅读</strong>开始读完整小短文，训练上下文理解。</div>
                     <div class="route-step"><strong>初中</strong>进入校园社团、城市出行、科学观察等段落阅读。</div>
                     <div class="route-step"><strong>高中</strong>进入观点表达、责任主题、应用文本和较长句子。</div>
+                    <div class="route-step"><strong>应用</strong>覆盖点餐、看病、电话、购物、出行、入住等常用生活场景。</div>
                     <div class="route-step"><strong>目标</strong>从易到难，逐步做到看懂英文读物和常见英语应用。</div>
                 </div>
             </div>
@@ -1028,6 +1029,186 @@ const lessons = [
             { q: '如果有问题，学生应该怎么做？', options: ['写日记', '联系老师', '等待通知'], answer: 1, explain: '第四句写了 contact the teacher。' },
             { q: '最后一句强调了什么？', options: ['清晰信息让合作更容易', '邮件很难写', '活动不重要'], answer: 0, explain: '这是应用文本里的核心意识。' }
         ]
+    },
+    {
+        id: 'l19',
+        schoolStage: '应用',
+        level: 'Level 19',
+        title: '餐厅点餐',
+        theme: '学会看懂菜单、点餐和结账表达',
+        goal: '掌握 menu、order、dish、bill 这类最常用的餐厅英语。',
+        upgrade: '完成这一课后，你能看懂基础餐厅对话并完成简单点餐。',
+        text: [
+            { en: 'Good evening. Can I see the menu, please?', ipa: '/ɡʊd ˈiːvnɪŋ | kæn aɪ siː ðə ˈmenjuː pliːz/', zh: '晚上好。我可以看看菜单吗？', tip: 'see the menu = 看菜单' },
+            { en: 'I would like chicken soup and a small salad.', ipa: '/aɪ wʊd laɪk ˈtʃɪkɪn suːp ənd ə smɔːl ˈsæləd/', zh: '我想要鸡汤和一份小沙拉。', tip: 'I would like... = 我想要……' },
+            { en: 'Would you like anything to drink?', ipa: '/wʊd juː laɪk ˈeniθɪŋ tə drɪŋk/', zh: '您要喝点什么吗？', tip: 'anything to drink = 饮品' },
+            { en: 'Just water, please. No ice.', ipa: '/dʒʌst ˈwɔːtə(r) pliːz | nəʊ aɪs/', zh: '只要水，谢谢。不要冰。', tip: 'No ice = 不要冰' },
+            { en: 'Could I have the bill after the meal?', ipa: '/kʊd aɪ hæv ðə bɪl ˈɑːftə(r) ðə miːl/', zh: '饭后我可以结账吗？', tip: 'have the bill = 结账' }
+        ],
+        vocab: [
+            { word: 'menu', ipa: '/ˈmenjuː/', zh: '菜单', tip: '点餐第一步高频词' },
+            { word: 'order', ipa: '/ˈɔːdə(r)/', zh: '点餐；订单', tip: 'take your order 很常见' },
+            { word: 'salad', ipa: '/ˈsæləd/', zh: '沙拉', tip: '餐厅常见食物词' },
+            { word: 'drink', ipa: '/drɪŋk/', zh: '饮料；喝', tip: '点餐常用词' },
+            { word: 'bill', ipa: '/bɪl/', zh: '账单', tip: '英式英语常用 bill' },
+            { word: 'meal', ipa: '/miːl/', zh: '一餐；饭', tip: 'after the meal = 饭后' }
+        ],
+        practice: [
+            { q: '“Can I see the menu?” 的意思是？', options: ['我可以看看菜单吗', '我可以进厨房吗', '我可以换桌吗'], answer: 0, explain: 'menu = 菜单。' },
+            { q: 'I would like... 常用来做什么？', options: ['表达感谢', '表达想要点什么', '表达迷路'], answer: 1, explain: '餐厅和购物里都很常用。' },
+            { q: '“No ice.” 的意思是？', options: ['不要盐', '不要冰', '不要糖'], answer: 1, explain: 'ice = 冰。' },
+            { q: '结账常用哪个词？', options: ['dish', 'bill', 'table'], answer: 1, explain: 'bill = 账单。' }
+        ]
+    },
+    {
+        id: 'l20',
+        schoolStage: '应用',
+        level: 'Level 20',
+        title: '看病与买药',
+        theme: '覆盖就医问诊和药房基础表达',
+        goal: '掌握 fever、headache、medicine、twice a day 等生活必备词。',
+        upgrade: '完成这一课后，你能描述简单身体不适并看懂基础用药说明。',
+        text: [
+            { en: 'I have a headache and a sore throat.', ipa: '/aɪ hæv ə ˈhedeɪk ənd ə sɔː(r) θrəʊt/', zh: '我头痛，而且喉咙痛。', tip: 'have a headache = 头痛' },
+            { en: 'The doctor asks if I have a fever.', ipa: '/ðə ˈdɒktə(r) ɑːsks ɪf aɪ hæv ə ˈfiːvə(r)/', zh: '医生问我有没有发烧。', tip: 'have a fever = 发烧' },
+            { en: 'I need some medicine and enough rest.', ipa: '/aɪ niːd sʌm ˈmedsən ənd ɪˈnʌf rest/', zh: '我需要一些药，还要充分休息。', tip: 'enough rest = 足够休息' },
+            { en: 'Take this medicine twice a day after meals.', ipa: '/teɪk ðɪs ˈmedsən twaɪs ə deɪ ˈɑːftə(r) miːlz/', zh: '这种药每天饭后吃两次。', tip: 'twice a day = 一天两次' },
+            { en: 'If you still feel sick, come back tomorrow.', ipa: '/ɪf juː stɪl fiːl sɪk kʌm bæk təˈmɒrəʊ/', zh: '如果你还是不舒服，明天再来。', tip: 'come back = 再来' }
+        ],
+        vocab: [
+            { word: 'headache', ipa: '/ˈhedeɪk/', zh: '头痛', tip: '就医高频词' },
+            { word: 'sore throat', ipa: '/sɔː(r) θrəʊt/', zh: '喉咙痛', tip: '感冒常见表达' },
+            { word: 'fever', ipa: '/ˈfiːvə(r)/', zh: '发烧', tip: 'have a fever 高频搭配' },
+            { word: 'medicine', ipa: '/ˈmedsən/', zh: '药', tip: 'take medicine = 吃药' },
+            { word: 'rest', ipa: '/rest/', zh: '休息', tip: 'enough rest 很常见' },
+            { word: 'twice', ipa: '/twaɪs/', zh: '两次', tip: 'twice a day = 一天两次' }
+        ],
+        practice: [
+            { q: '患者哪里不舒服？', options: ['肚子痛和牙痛', '头痛和喉咙痛', '眼睛痛和腿痛'], answer: 1, explain: '第一句明确说了 headache and sore throat。' },
+            { q: '医生问的是不是发烧，对应哪个词？', options: ['fever', 'rest', 'meal'], answer: 0, explain: 'fever = 发烧。' },
+            { q: 'twice a day 的意思是？', options: ['一天一次', '一天两次', '两天一次'], answer: 1, explain: 'twice = 两次。' },
+            { q: '如果还是不舒服，应该怎么做？', options: ['立刻出院', '明天再来', '多喝咖啡'], answer: 1, explain: '第五句给出了建议。' }
+        ]
+    },
+    {
+        id: 'l21',
+        schoolStage: '应用',
+        level: 'Level 21',
+        title: '电话与约见',
+        theme: '覆盖打电话、确认时间和发出邀请',
+        goal: '掌握 available、appointment、invite、reply 这类常用沟通词。',
+        upgrade: '完成这一课后，你能完成简单电话沟通和见面安排。',
+        text: [
+            { en: 'Hello, may I speak to Mr Green?', ipa: '/həˈləʊ | meɪ aɪ spiːk tə ˌmɪstə ˈɡriːn/', zh: '你好，我可以找格林先生接电话吗？', tip: 'may I speak to... = 我可以找……吗' },
+            { en: 'He is not here right now, but he will call you back.', ipa: '/hiː ɪz nɒt hɪə(r) raɪt naʊ bət hiː wɪl kɔːl juː bæk/', zh: '他现在不在，但他会给你回电话。', tip: 'call back = 回电话' },
+            { en: 'Are you available at three this afternoon?', ipa: '/ɑː(r) juː əˈveɪləbl æt θriː ðɪs ˌɑːftəˈnuːn/', zh: '今天下午三点你有空吗？', tip: 'available = 有空的' },
+            { en: 'Yes, that time works for me.', ipa: '/jes | ðæt taɪm wɜːks fə(r) miː/', zh: '有空，这个时间对我合适。', tip: 'work for me = 对我合适' },
+            { en: 'Great. I will send you the address in a message.', ipa: '/ɡreɪt | aɪ wɪl send juː ði əˈdres ɪn ə ˈmesɪdʒ/', zh: '太好了。我会把地址发消息给你。', tip: 'send a message = 发消息' }
+        ],
+        vocab: [
+            { word: 'speak to', ipa: '/spiːk tə/', zh: '和……通话', tip: '电话沟通固定表达' },
+            { word: 'call back', ipa: '/kɔːl bæk/', zh: '回电话', tip: '日常高频口语' },
+            { word: 'available', ipa: '/əˈveɪləbl/', zh: '有空的', tip: '约时间必备词' },
+            { word: 'appointment', ipa: '/əˈpɔɪntmənt/', zh: '预约；约见', tip: '医院和商务都常见' },
+            { word: 'address', ipa: '/əˈdres/', zh: '地址', tip: 'send the address 高频搭配' },
+            { word: 'message', ipa: '/ˈmesɪdʒ/', zh: '消息', tip: '发短信或消息都能用' }
+        ],
+        practice: [
+            { q: '“May I speak to Mr Green?” 常用于什么场景？', options: ['问路', '打电话找人', '点餐'], answer: 1, explain: '这是电话中的典型句子。' },
+            { q: 'call back 的意思是？', options: ['挂电话', '回电话', '转接电话'], answer: 1, explain: 'call back = 回电话。' },
+            { q: 'available 最接近哪个意思？', options: ['有空的', '生病的', '安静的'], answer: 0, explain: '约时间高频词。' },
+            { q: '最后一句表示什么？', options: ['取消见面', '发送地址消息', '马上出发'], answer: 1, explain: 'send you the address in a message。' }
+        ]
+    },
+    {
+        id: 'l22',
+        schoolStage: '应用',
+        level: 'Level 22',
+        title: '超市购物与退换',
+        theme: '学会处理购买、找货、退换货等常用场景',
+        goal: '掌握 aisle、receipt、size、exchange 这类购物高频词。',
+        upgrade: '完成这一课后，你能在超市和商店完成基础购物沟通。',
+        text: [
+            { en: 'Excuse me, where can I find the milk?', ipa: '/ɪkˈskjuːz miː | weə(r) kæn aɪ faɪnd ðə mɪlk/', zh: '打扰一下，我在哪里能找到牛奶？', tip: 'Where can I find...? = 我在哪能找到……' },
+            { en: 'It is in aisle five, next to the bread.', ipa: '/ɪt ɪz ɪn aɪl faɪv nekst tə ðə bred/', zh: '它在五号货架过道，面包旁边。', tip: 'aisle = 过道、货架区' },
+            { en: 'This shirt is too small. Can I exchange it?', ipa: '/ðɪs ʃɜːt ɪz tuː smɔːl | kæn aɪ ɪksˈtʃeɪndʒ ɪt/', zh: '这件衬衫太小了。我可以换吗？', tip: 'too small = 太小' },
+            { en: 'Yes, but please keep the receipt.', ipa: '/jes bət pliːz kiːp ðə rɪˈsiːt/', zh: '可以，但请保留小票。', tip: 'receipt = 小票' },
+            { en: 'We also have the same style in a larger size.', ipa: '/wiː ˈɔːlsəʊ hæv ðə seɪm staɪl ɪn ə ˈlɑːdʒə(r) saɪz/', zh: '我们也有同款更大的尺码。', tip: 'larger size = 更大尺码' }
+        ],
+        vocab: [
+            { word: 'aisle', ipa: '/aɪl/', zh: '货架过道', tip: '超市找东西高频词' },
+            { word: 'exchange', ipa: '/ɪksˈtʃeɪndʒ/', zh: '更换', tip: '退换货常见动词' },
+            { word: 'receipt', ipa: '/rɪˈsiːt/', zh: '小票', tip: '售后必备词' },
+            { word: 'size', ipa: '/saɪz/', zh: '尺码', tip: '买衣服高频词' },
+            { word: 'style', ipa: '/staɪl/', zh: '款式', tip: '衣服鞋子常见词' },
+            { word: 'larger', ipa: '/ˈlɑːdʒə(r)/', zh: '更大的', tip: '比较级实际使用很常见' }
+        ],
+        practice: [
+            { q: '顾客在找什么？', options: ['牛奶', '鸡蛋', '米饭'], answer: 0, explain: '第一句在找 milk。' },
+            { q: 'receipt 的中文是？', options: ['收银员', '小票', '优惠券'], answer: 1, explain: '退换货时非常重要。' },
+            { q: '“Can I exchange it?” 的意思是？', options: ['可以试穿吗', '可以换货吗', '可以打折吗'], answer: 1, explain: 'exchange = 更换。' },
+            { q: '店员最后提供了什么？', options: ['同款更大尺码', '退款', '免费礼物'], answer: 0, explain: '第五句给出了答案。' }
+        ]
+    },
+    {
+        id: 'l23',
+        schoolStage: '应用',
+        level: 'Level 23',
+        title: '车站出行与订票',
+        theme: '学会看懂班次、站台和车票信息',
+        goal: '掌握 ticket、platform、departure、return ticket 这类出行词。',
+        upgrade: '完成这一课后，你能在车站完成基础购票和问询。',
+        text: [
+            { en: 'I need a return ticket to Oxford, please.', ipa: '/aɪ niːd ə rɪˈtɜːn ˈtɪkɪt tə ˈɒksfəd pliːz/', zh: '我想买一张去牛津的往返票，谢谢。', tip: 'return ticket = 往返票' },
+            { en: 'The next train leaves at ten thirty from platform four.', ipa: '/ðə nekst treɪn liːvz æt ten ˈθɜːti frəm ˈplætfɔːm fɔː(r)/', zh: '下一班火车十点半从四号站台出发。', tip: 'leave from platform... = 从……站台出发' },
+            { en: 'How long does the journey take?', ipa: '/haʊ lɒŋ dʌz ðə ˈdʒɜːni teɪk/', zh: '这段行程要多久？', tip: 'How long does it take? = 要多久' },
+            { en: 'It takes about one hour and twenty minutes.', ipa: '/ɪt teɪks əˈbaʊt wʌn aʊə(r) ənd ˈtwenti ˈmɪnɪts/', zh: '大约需要一小时二十分钟。', tip: 'about = 大约' },
+            { en: 'Please arrive early and check the departure board.', ipa: '/pliːz əˈraɪv ˈɜːli ənd tʃek ðə dɪˈpɑːtʃə(r) bɔːd/', zh: '请提前到达，并查看出发信息牌。', tip: 'departure board = 出发信息牌' }
+        ],
+        vocab: [
+            { word: 'ticket', ipa: '/ˈtɪkɪt/', zh: '车票', tip: '出行核心词' },
+            { word: 'return ticket', ipa: '/rɪˈtɜːn ˈtɪkɪt/', zh: '往返票', tip: '和 one-way ticket 对照记' },
+            { word: 'platform', ipa: '/ˈplætfɔːm/', zh: '站台', tip: '火车站高频词' },
+            { word: 'journey', ipa: '/ˈdʒɜːni/', zh: '行程', tip: 'travel texts 常见词' },
+            { word: 'departure', ipa: '/dɪˈpɑːtʃə(r)/', zh: '出发', tip: 'departure board 高频搭配' },
+            { word: 'early', ipa: '/ˈɜːli/', zh: '提前；早', tip: 'Please arrive early 很常见' }
+        ],
+        practice: [
+            { q: '顾客要买什么票？', options: ['单程票', '往返票', '月票'], answer: 1, explain: '第一句明确是 return ticket。' },
+            { q: '下一班车从几号站台出发？', options: ['二号', '三号', '四号'], answer: 2, explain: '第二句是 platform four。' },
+            { q: 'journey 的中文是？', options: ['行程', '座位', '车门'], answer: 0, explain: 'How long does the journey take? 很常见。' },
+            { q: '出发前建议做什么？', options: ['晚点去', '查看出发信息牌', '换酒店'], answer: 1, explain: '最后一句给出了建议。' }
+        ]
+    },
+    {
+        id: 'l24',
+        schoolStage: '应用',
+        level: 'Level 24',
+        title: '旅行入住与求助',
+        theme: '覆盖酒店入住、设施询问和求助表达',
+        goal: '掌握 reservation、single room、key card、help 这类旅行高频词。',
+        upgrade: '完成这一课后，你能在酒店和旅行场景完成基础沟通。',
+        text: [
+            { en: 'Good afternoon. I have a reservation under the name Li.', ipa: '/ɡʊd ˌɑːftəˈnuːn | aɪ hæv ə ˌrezəˈveɪʃən ˈʌndə(r) ðə neɪm liː/', zh: '下午好。我有一个李名下的预订。', tip: 'have a reservation = 有预订' },
+            { en: 'Would you like a single room or a double room?', ipa: '/wʊd juː laɪk ə ˈsɪŋɡl ruːm ɔː(r) ə ˈdʌbl ruːm/', zh: '您想要单人间还是双人间？', tip: 'single / double room = 单人间 / 双人间' },
+            { en: 'A single room is fine, and breakfast is included.', ipa: '/ə ˈsɪŋɡl ruːm ɪz faɪn ənd ˈbrekfəst ɪz ɪnˈkluːdɪd/', zh: '单人间就可以，而且包含早餐。', tip: 'be included = 被包含' },
+            { en: 'Here is your key card. The lift is on your left.', ipa: '/hɪə(r) ɪz jɔː(r) kiː kɑːd | ðə lɪft ɪz ɒn jɔː(r) left/', zh: '这是您的房卡。电梯在您的左边。', tip: 'key card = 房卡' },
+            { en: 'If you need help, please call the front desk at any time.', ipa: '/ɪf juː niːd help pliːz kɔːl ðə frʌnt desk æt ˈeni taɪm/', zh: '如果您需要帮助，请随时给前台打电话。', tip: 'front desk = 前台' }
+        ],
+        vocab: [
+            { word: 'reservation', ipa: '/ˌrezəˈveɪʃən/', zh: '预订', tip: '酒店和餐厅都常用' },
+            { word: 'single room', ipa: '/ˈsɪŋɡl ruːm/', zh: '单人间', tip: '旅行住宿高频词' },
+            { word: 'double room', ipa: '/ˈdʌbl ruːm/', zh: '双人间', tip: '和 single room 对照记' },
+            { word: 'included', ipa: '/ɪnˈkluːdɪd/', zh: '包含在内的', tip: 'breakfast included 常见' },
+            { word: 'key card', ipa: '/kiː kɑːd/', zh: '房卡', tip: '入住必备词' },
+            { word: 'front desk', ipa: '/frʌnt desk/', zh: '前台', tip: '求助场景高频词' }
+        ],
+        practice: [
+            { q: '客人用什么方式说明自己有预订？', options: ['I have a reservation', 'I need a taxi', 'I lost my bag'], answer: 0, explain: 'have a reservation = 有预订。' },
+            { q: 'single room 的中文是？', options: ['双人间', '单人间', '会议室'], answer: 1, explain: '住宿场景高频词。' },
+            { q: 'key card 指什么？', options: ['钥匙链', '房卡', '名片'], answer: 1, explain: '入住时前台会给房卡。' },
+            { q: '如果需要帮助，应该联系哪里？', options: ['车站', '前台', '厨房'], answer: 1, explain: '最后一句是 call the front desk。' }
+        ]
     }
 ];
 
@@ -1102,6 +1283,32 @@ const stageTests = [
             { q: 'responsibility 的中文是？', options: ['责任', '能力', '友谊'], answer: 0, explain: '高中主题阅读高频词。' },
             { q: '高中阶段的重点能力是什么？', options: ['只记口语句子', '理解观点并读懂应用文本', '只会看图选词'], answer: 1, explain: '这组课程已经进入观点和应用阅读。' }
         ]
+    },
+    {
+        id: 's6',
+        title: '阶段测试 6：常用生活场景',
+        desc: '覆盖 Level 19 到 Level 21，检查你是否能应对餐厅、就医和电话约见。',
+        range: [18, 20],
+        questions: [
+            { q: '在餐厅里，看菜单最常用哪句话？', options: ['Can I see the menu?', 'Where is the hospital?', 'What time is it?'], answer: 0, explain: '点餐第一步常用句。' },
+            { q: 'twice a day 的意思是？', options: ['一天一次', '一天两次', '两周一次'], answer: 1, explain: '药品说明高频表达。' },
+            { q: 'call back 指什么？', options: ['打错电话', '回电话', '挂电话'], answer: 1, explain: '电话沟通常用词。' },
+            { q: 'available 最常用于哪类场景？', options: ['约时间', '买牛奶', '找药房'], answer: 0, explain: '约见和电话沟通里很常见。' },
+            { q: 'bill 在餐厅里通常是什么意思？', options: ['账单', '桌布', '饭盒'], answer: 0, explain: '英式英语里常用 bill 表示账单。' }
+        ]
+    },
+    {
+        id: 's7',
+        title: '阶段测试 7：出行与服务应用',
+        desc: '覆盖 Level 22 到 Level 24，检查你是否能处理购物、购票和酒店入住场景。',
+        range: [21, 23],
+        questions: [
+            { q: 'receipt 的中文是？', options: ['账单', '小票', '菜单'], answer: 1, explain: '退换货很常见。' },
+            { q: 'return ticket 指什么？', options: ['往返票', '站票', '月票'], answer: 0, explain: '出行购票高频词。' },
+            { q: 'reservation 最常见于哪个场景？', options: ['医院问诊', '酒店或餐厅预订', '校园考试'], answer: 1, explain: '预订场景高频词。' },
+            { q: 'front desk 的意思是？', options: ['前台', '前门', '前排桌子'], answer: 0, explain: '酒店入住常见词。' },
+            { q: '这组课程主要解决什么问题？', options: ['学术论文阅读', '常用生活服务沟通', '古诗翻译'], answer: 1, explain: '这组内容偏真实生活应用。' }
+        ]
     }
 ];
 
@@ -1164,7 +1371,9 @@ function getCurrentStageIndex() {
     if (currentLessonIndex <= 7) return 1;
     if (currentLessonIndex <= 11) return 2;
     if (currentLessonIndex <= 14) return 3;
-    return 4;
+    if (currentLessonIndex <= 17) return 4;
+    if (currentLessonIndex <= 20) return 5;
+    return 6;
 }
 
 function renderLesson() {
