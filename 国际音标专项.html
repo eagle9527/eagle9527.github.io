@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>国际音标专项学习</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #eef6ff 0%, #f8f2ff 50%, #fff8ef 100%);
+    color: #1f2d3d;
+    min-height: 100vh;
+}
+.page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+}
+.hero {
+    background: rgba(255,255,255,0.96);
+    border-radius: 24px;
+    padding: 28px;
+    box-shadow: 0 16px 40px rgba(31,45,61,0.08);
+    margin-bottom: 20px;
+}
+.hero h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+    color: #0f6cbd;
+}
+.hero p {
+    color: #526071;
+    line-height: 1.8;
+    font-size: 15px;
+}
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+}
+.stat-card {
+    background: linear-gradient(135deg, #f4fbff, #f6fff8);
+    border: 1px solid #dbe8f5;
+    border-radius: 18px;
+    padding: 18px;
+}
+.stat-value {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0f6cbd;
+}
+.stat-label {
+    margin-top: 6px;
+    font-size: 13px;
+    color: #667085;
+}
+.toolbar {
+    background: rgba(255,255,255,0.96);
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 12px 30px rgba(31,45,61,0.08);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+.search {
+    flex: 1;
+    min-width: 240px;
+    border: 2px solid #dbe8f5;
+    border-radius: 14px;
+    padding: 12px 14px;
+    font-size: 15px;
+    outline: none;
+}
+.search:focus {
+    border-color: #0f6cbd;
+}
+.tab-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.tab-btn {
+    border: none;
+    border-radius: 999px;
+    background: #eaf3ff;
+    color: #0f6cbd;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.tab-btn.active {
+    background: #0f6cbd;
+    color: #fff;
+}
+.section {
+    background: rgba(255,255,255,0.96);
+    border-radius: 22px;
+    padding: 22px;
+    box-shadow: 0 12px 30px rgba(31,45,61,0.08);
+}
+.section-head {
+    margin-bottom: 18px;
+}
+.section-head h2 {
+    font-size: 28px;
+    color: #1f2d3d;
+}
+.section-head p {
+    color: #667085;
+    font-size: 14px;
+    margin-top: 8px;
+    line-height: 1.7;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+}
+.ipa-card {
+    border: 1px solid #dde7f4;
+    border-radius: 20px;
+    padding: 18px;
+    background: linear-gradient(180deg, #ffffff, #f9fbff);
+}
+.ipa-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+.ipa-symbol {
+    font-size: 34px;
+    font-weight: bold;
+    color: #0f6cbd;
+    line-height: 1;
+}
+.ipa-cn {
+    margin-top: 8px;
+    color: #526071;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.ipa-note {
+    margin-top: 6px;
+    color: #98a2b3;
+    font-size: 12px;
+}
+.ipa-mnemonic {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #fff7e8;
+    border: 1px solid #ffe1a8;
+    color: #8a5a00;
+    font-size: 13px;
+    line-height: 1.6;
+}
+.ipa-mnemonic strong {
+    color: #b46900;
+}
+.btn {
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 8px 12px;
+}
+.btn-sound {
+    background: #27ae60;
+    color: #fff;
+}
+.btn-light {
+    background: #eef5ff;
+    color: #0f6cbd;
+}
+.example-title {
+    font-size: 13px;
+    color: #667085;
+    margin-bottom: 10px;
+}
+.example-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.example-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: #f3f9ff;
+    border: 1px solid #d8e9ff;
+    font-size: 13px;
+}
+.example-word {
+    font-weight: bold;
+    color: #1f2d3d;
+}
+.example-ipa {
+    color: #667085;
+}
+.empty {
+    padding: 50px 20px;
+    text-align: center;
+    color: #98a2b3;
+    font-size: 16px;
+}
+@media (max-width: 768px) {
+    .page { padding: 14px; }
+    .hero h1 { font-size: 28px; }
+    .section-head h2 { font-size: 24px; }
+    .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+    <div class="hero">
+        <h1>英语 48 个国际音标（英式 RP）</h1>
+        <p>
+            当前页面按你提供的英式 RP 教学口径整理为 48 个音标：20 个元音、28 个辅音与常见组合音。
+            元音发音时气流基本不受阻碍，辅音发音时气流会受到阻碍；浊辅音发音时声带会振动。
+            音标按钮播放本地音频，示例词用于帮助理解口型和常见拼读场景。
+            你可以按分类学习，也可以直接搜索音标或单词。
+        </p>
+        <div class="stats" id="stats"></div>
+    </div>
+
+    <div class="toolbar">
+        <input id="searchInput" class="search" type="text" placeholder="搜索音标、口型提示、示例词，比如 /iː/、apple、双元音">
+        <div class="tab-bar" id="tabBar"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-head">
+            <h2 id="sectionTitle">国际音标总览</h2>
+            <p id="sectionDesc"></p>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" style="display:none">没有匹配到结果，换个音标或单词试试。</div>
+    </div>
+</div>
+
+<script>
+const IPA_DATA = {
+    vowels: {
+        title: '单元音 12 个',
+        desc: '单元音共 12 个，分成长元音和短元音。长元音要拉长，短元音要短促有力。',
+        items: [
+            { symbol:'/iː/', cue:'ee', cn:'长音“衣”', examples:[['see','/siː/'],['tree','/triː/'],['green','/ɡriːn/'],['teacher','/ˈtiːtʃə(r)/'],['meet','/miːt/'],['three','/θriː/']] },
+            { symbol:'/ɪ/', cue:'ih', cn:'短音“衣”，短促轻快', examples:[['sit','/sɪt/'],['big','/bɪɡ/'],['fish','/fɪʃ/'],['milk','/mɪlk/'],['window','/ˈwɪndəʊ/'],['ticket','/ˈtɪkɪt/']] },
+            { symbol:'/e/', cue:'eh', cn:'嘴半开，短“哎”', examples:[['bed','/bed/'],['pen','/pen/'],['desk','/desk/'],['red','/red/'],['ten','/ten/'],['leg','/leɡ/']] },
+            { symbol:'/æ/', cue:'aeh', cn:'大口“哎”', examples:[['cat','/kæt/'],['apple','/ˈæpəl/'],['bag','/bæɡ/'],['hand','/hænd/'],['black','/blæk/'],['family','/ˈfæməli/']] },
+            { symbol:'/ʌ/', cue:'uh', cn:'短音“阿”，嘴自然张开', examples:[['sun','/sʌn/'],['mother','/ˈmʌðə(r)/'],['cup','/kʌp/'],['bus','/bʌs/'],['come','/kʌm/'],['love','/lʌv/']] },
+            { symbol:'/ɑː/', cue:'ah', cn:'长音“啊”', examples:[['car','/kɑː(r)/'],['father','/ˈfɑːðə(r)/'],['park','/pɑːk/'],['class','/klɑːs/'],['star','/stɑː(r)/'],['farm','/fɑːm/']] },
+            { symbol:'/ɒ/', cue:'o', cn:'短音“奥”，嘴圆', examples:[['dog','/dɒɡ/'],['box','/bɒks/'],['hot','/hɒt/'],['clock','/klɒk/'],['shop','/ʃɒp/'],['not','/nɒt/']] },
+            { symbol:'/ɔː/', cue:'aw', cn:'长音“奥”', examples:[['horse','/hɔːs/'],['morning','/ˈmɔːnɪŋ/'],['short','/ʃɔːt/'],['door','/dɔː(r)/'],['four','/fɔː(r)/'],['talk','/tɔːk/']] },
+            { symbol:'/ʊ/', cue:'oo', cn:'短音“乌”，嘴放松', examples:[['book','/bʊk/'],['good','/ɡʊd/'],['foot','/fʊt/'],['look','/lʊk/'],['cook','/kʊk/'],['woman','/ˈwʊmən/']] },
+            { symbol:'/uː/', cue:'ooh', cn:'长音“乌”', examples:[['blue','/bluː/'],['school','/skuːl/'],['food','/fuːd/'],['room','/ruːm/'],['too','/tuː/'],['student','/ˈstuːd(ə)nt/']] },
+            { symbol:'/ə/', cue:'uh', cn:'轻读“呃”，弱读很常见', examples:[['about','/əˈbaʊt/'],['banana','/bəˈnɑːnə/'],['teacher','/ˈtiːtʃə(r)/'],['today','/təˈdeɪ/'],['sister','/ˈsɪstə(r)/'],['doctor','/ˈdɒktə(r)/']] },
+            { symbol:'/ɜː/', cue:'er', cn:'长音“呃”', examples:[['bird','/bɜːd/'],['girl','/ɡɜːl/'],['nurse','/nɜːs/'],['work','/wɜːk/'],['word','/wɜːd/'],['thirty','/ˈθɜːti/']] }
+        ]
+    },
+    diphthongs: {
+        title: '双元音 8 个',
+        desc: '双元音要注意从第一个音滑向第二个音，口型会发生连续变化。',
+        items: [
+            { symbol:'/eɪ/', cue:'ay', cn:'从 /e/ 滑向 /ɪ/', examples:[['name','/neɪm/'],['plane','/pleɪn/'],['day','/deɪ/'],['rain','/reɪn/'],['cake','/keɪk/'],['game','/ɡeɪm/']] },
+            { symbol:'/aɪ/', cue:'eye', cn:'从“啊”滑向 /ɪ/', examples:[['bike','/baɪk/'],['five','/faɪv/'],['my','/maɪ/'],['time','/taɪm/'],['white','/waɪt/'],['night','/naɪt/']] },
+            { symbol:'/ɔɪ/', cue:'oy', cn:'从“奥”滑向 /ɪ/', examples:[['boy','/bɔɪ/'],['toy','/tɔɪ/'],['joy','/dʒɔɪ/'],['noise','/nɔɪz/'],['voice','/vɔɪs/'],['point','/pɔɪnt/']] },
+            { symbol:'/aʊ/', cue:'ow', cn:'从“啊”滑向 /ʊ/', examples:[['house','/haʊs/'],['mouth','/maʊθ/'],['now','/naʊ/'],['brown','/braʊn/'],['flower','/ˈflaʊə(r)/'],['cow','/kaʊ/']] },
+            { symbol:'/əʊ/', cue:'oh', cn:'从弱读 /ə/ 滑向 /ʊ/', examples:[['go','/ɡəʊ/'],['nose','/nəʊz/'],['home','/həʊm/'],['boat','/bəʊt/'],['road','/rəʊd/'],['yellow','/ˈjeləʊ/']] },
+            { symbol:'/ɪə/', cue:'ear', cn:'从 /ɪ/ 滑向弱读 /ə/', examples:[['ear','/ɪə(r)/'],['here','/hɪə(r)/'],['dear','/dɪə(r)/'],['near','/nɪə(r)/'],['year','/jɪə(r)/'],['idea','/aɪˈdɪə/']] },
+            { symbol:'/eə/', cue:'air', cn:'从 /e/ 滑向弱读 /ə/', examples:[['hair','/heə(r)/'],['pear','/peə(r)/'],['bear','/beə(r)/'],['where','/weə(r)/'],['care','/keə(r)/'],['there','/ðeə(r)/']] },
+            { symbol:'/ʊə/', cue:'poor', cn:'从 /ʊ/ 滑向弱读 /ə/', examples:[['tour','/tʊə(r)/'],['poor','/pʊə(r)/'],['sure','/ʃʊə(r)/'],['during','/ˈdjʊərɪŋ/'],['cure','/kjʊə(r)/'],['pure','/pjʊə(r)/']] }
+        ]
+    },
+    consonants: {
+        title: '辅音与组合 28 个',
+        desc: '辅音共 28 个，按清浊、爆破音、摩擦音、破擦音、鼻音、边音和半元音整理。浊辅音发音时声带会振动。',
+        items: [
+            { symbol:'/p/', cue:'puh', cn:'清辅音 p，送气', examples:[['pen','/pen/'],['pig','/pɪɡ/'],['park','/pɑːk/'],['paper','/ˈpeɪpə(r)/'],['pink','/pɪŋk/'],['point','/pɔɪnt/']] },
+            { symbol:'/b/', cue:'buh', cn:'浊辅音 b，声带振动', examples:[['book','/bʊk/'],['bag','/bæɡ/'],['bird','/bɜːd/'],['blue','/bluː/'],['banana','/bəˈnɑːnə/'],['best','/best/']] },
+            { symbol:'/t/', cue:'tuh', cn:'清辅音 t', examples:[['tea','/tiː/'],['table','/ˈteɪbəl/'],['ten','/ten/'],['ticket','/ˈtɪkɪt/'],['time','/taɪm/'],['teacher','/ˈtiːtʃə(r)/']] },
+            { symbol:'/d/', cue:'duh', cn:'浊辅音 d', examples:[['dog','/dɒɡ/'],['desk','/desk/'],['door','/dɔː(r)/'],['day','/deɪ/'],['doctor','/ˈdɒktə(r)/'],['drink','/drɪŋk/']] },
+            { symbol:'/k/', cue:'kuh', cn:'清辅音 k', examples:[['cat','/kæt/'],['kite','/kaɪt/'],['cake','/keɪk/'],['school','/skuːl/'],['clock','/klɒk/'],['cold','/kəʊld/']] },
+            { symbol:'/ɡ/', cue:'guh', cn:'浊辅音 g', examples:[['go','/ɡəʊ/'],['green','/ɡriːn/'],['good','/ɡʊd/'],['girl','/ɡɜːl/'],['game','/ɡeɪm/'],['glass','/ɡlɑːs/']] },
+            { symbol:'/f/', cue:'fff', cn:'上齿轻碰下唇', examples:[['fish','/fɪʃ/'],['father','/ˈfɑːðə(r)/'],['food','/fuːd/'],['four','/fɔː(r)/'],['family','/ˈfæməli/'],['flower','/ˈflaʊə(r)/']] },
+            { symbol:'/v/', cue:'vvv', cn:'和 /f/ 口型相似，但要振动', examples:[['very','/ˈveri/'],['visit','/ˈvɪzɪt/'],['voice','/vɔɪs/'],['five','/faɪv/'],['leave','/liːv/'],['love','/lʌv/']] },
+            { symbol:'/θ/', cue:'thhh', cn:'咬舌轻吹气', examples:[['think','/θɪŋk/'],['thank','/θæŋk/'],['three','/θriː/'],['thirty','/ˈθɜːti/'],['mouth','/maʊθ/'],['bath','/bɑːθ/']] },
+            { symbol:'/ð/', cue:'thh', cn:'咬舌并振动', examples:[['this','/ðɪs/'],['that','/ðæt/'],['mother','/ˈmʌðə(r)/'],['brother','/ˈbrʌðə(r)/'],['they','/ðeɪ/'],['there','/ðeə(r)/']] },
+            { symbol:'/s/', cue:'sss', cn:'清辅音 s', examples:[['see','/siː/'],['sun','/sʌn/'],['school','/skuːl/'],['six','/sɪks/'],['sister','/ˈsɪstə(r)/'],['bus','/bʌs/']] },
+            { symbol:'/z/', cue:'zzz', cn:'浊辅音 z', examples:[['zoo','/zuː/'],['zero','/ˈzɪərəʊ/'],['busy','/ˈbɪzi/'],['nose','/nəʊz/'],['music','/ˈmjuːzɪk/'],['please','/pliːz/']] },
+            { symbol:'/ʃ/', cue:'shh', cn:'“嘘”的音', examples:[['she','/ʃiː/'],['ship','/ʃɪp/'],['shoe','/ʃuː/'],['short','/ʃɔːrt/'],['fish','/fɪʃ/'],['English','/ˈɪŋɡlɪʃ/']] },
+            { symbol:'/ʒ/', cue:'zh', cn:'浊音，像法语音', examples:[['usually','/ˈjuːʒuəli/'],['vision','/ˈvɪʒn/'],['television','/ˈtelɪvɪʒn/'],['measure','/ˈmeʒə(r)/'],['beige','/beɪʒ/'],['garage','/ɡəˈrɑːʒ/']] },
+            { symbol:'/h/', cue:'hhh', cn:'哈气音 h', examples:[['hello','/həˈləʊ/'],['happy','/ˈhæpi/'],['home','/həʊm/'],['house','/haʊs/'],['hand','/hænd/'],['horse','/hɔːs/']] },
+            { symbol:'/m/', cue:'mmm', cn:'鼻音 m，双唇闭合', examples:[['mother','/ˈmʌðə(r)/'],['milk','/mɪlk/'],['morning','/ˈmɔːnɪŋ/'],['map','/mæp/'],['room','/ruːm/'],['time','/taɪm/']] },
+            { symbol:'/n/', cue:'nnn', cn:'鼻音 n，舌尖顶齿龈', examples:[['name','/neɪm/'],['nine','/naɪn/'],['nose','/nəʊz/'],['banana','/bəˈnɑːnə/'],['green','/ɡriːn/'],['sunny','/ˈsʌni/']] },
+            { symbol:'/ŋ/', cue:'ng', cn:'后鼻音 ng', examples:[['sing','/sɪŋ/'],['long','/lɒŋ/'],['English','/ˈɪŋɡlɪʃ/'],['thank','/θæŋk/'],['morning','/ˈmɔːrnɪŋ/'],['song','/sɒŋ/']] },
+            { symbol:'/l/', cue:'lll', cn:'边音 l，气流从舌两边出来', examples:[['like','/laɪk/'],['leg','/leɡ/'],['blue','/bluː/'],['light','/laɪt/'],['ball','/bɔːl/'],['school','/skuːl/']] },
+            { symbol:'/r/', cue:'rrr', cn:'舌尖微卷，嘴唇略圆', examples:[['red','/red/'],['ruler','/ˈruːlə(r)/'],['right','/raɪt/'],['green','/ɡriːn/'],['brown','/braʊn/'],['tree','/triː/']] },
+            { symbol:'/j/', cue:'yuh', cn:'像汉语“耶”', examples:[['yes','/jes/'],['yellow','/ˈjeləʊ/'],['year','/jɪə(r)/'],['you','/juː/'],['yesterday','/ˈjestədeɪ/'],['young','/jʌŋ/']] },
+            { symbol:'/w/', cue:'wuh', cn:'像汉语“乌”，嘴圆', examples:[['we','/wiː/'],['water','/ˈwɔːtə(r)/'],['white','/waɪt/'],['window','/ˈwɪndəʊ/'],['wood','/wʊd/'],['watch','/wɒtʃ/']] },
+            { symbol:'/tʃ/', cue:'ch', cn:'“吃”的起音', examples:[['chair','/tʃeə(r)/'],['teacher','/ˈtiːtʃə(r)/'],['chicken','/ˈtʃɪkɪn/'],['watch','/wɒtʃ/'],['lunch','/lʌntʃ/'],['children','/ˈtʃɪldrən/']] },
+            { symbol:'/dʒ/', cue:'j', cn:'“j”常见发音', examples:[['juice','/dʒuːs/'],['orange','/ˈɒrɪndʒ/'],['job','/dʒɒb/'],['jump','/dʒʌmp/'],['age','/eɪdʒ/'],['bridge','/brɪdʒ/']] },
+            { symbol:'/tr/', cue:'tr', cn:'常见组合辅音，像“戳”的起音', examples:[['tree','/triː/'],['train','/treɪn/'],['trip','/trɪp/'],['truck','/trʌk/'],['street','/striːt/'],['country','/ˈkʌntri/']] },
+            { symbol:'/dr/', cue:'dr', cn:'常见组合辅音，像“啄”的起音', examples:[['dress','/dres/'],['driver','/ˈdraɪvə(r)/'],['drink','/drɪŋk/'],['dry','/draɪ/'],['dream','/driːm/'],['hundred','/ˈhʌndrəd/']] },
+            { symbol:'/ts/', cue:'ts', cn:'常见清辅音组合', examples:[['cats','/kæts/'],['hats','/hæts/'],['its','/ɪts/'],['lets','/lets/'],['shirts','/ʃɜːts/'],['boats','/bəʊts/']] },
+            { symbol:'/dz/', cue:'dz', cn:'常见浊辅音组合', examples:[['beds','/bedz/'],['hands','/hændz/'],['birds','/bɜːdz/'],['cards','/kɑːdz/'],['friends','/frendz/'],['kids','/kɪdz/']] }
+        ]
+    }
+};
+
+const TAB_META = [
+    { key:'all', title:'全部音标' },
+    { key:'vowels', title:'单元音' },
+    { key:'diphthongs', title:'双元音' },
+    { key:'consonants', title:'辅音' }
+];
+
+const IPA_AUDIO_FILES = {
+    '/iː/':'ipa_audio/i_long.mp3',
+    '/ɪ/':'ipa_audio/i_short.mp3',
+    '/e/':'ipa_audio/e_short.mp3',
+    '/æ/':'ipa_audio/ae.mp3',
+    '/ʌ/':'ipa_audio/uh_strut.mp3',
+    '/ɑː/':'ipa_audio/aa_long.mp3',
+    '/ɒ/':'ipa_audio/o_short.mp3',
+    '/ɔː/':'ipa_audio/ao_long.mp3',
+    '/ʊ/':'ipa_audio/u_short.mp3',
+    '/uː/':'ipa_audio/u_long.mp3',
+    '/ə/':'ipa_audio/schwa.mp3',
+    '/ɜː/':'ipa_audio/er_long.mp3',
+    '/eɪ/':'ipa_audio/ei.mp3',
+    '/aɪ/':'ipa_audio/ai.mp3',
+    '/ɔɪ/':'ipa_audio/oi.mp3',
+    '/aʊ/':'ipa_audio/au.mp3',
+    '/əʊ/':'ipa_audio/oh.mp3',
+    '/ɪə/':'ipa_audio/ir.mp3',
+    '/eə/':'ipa_audio/ar.mp3',
+    '/ʊə/':'ipa_audio/ur.mp3',
+    '/p/':'ipa_audio/p.mp3',
+    '/b/':'ipa_audio/b.mp3',
+    '/t/':'ipa_audio/t.mp3',
+    '/d/':'ipa_audio/d.mp3',
+    '/k/':'ipa_audio/k.mp3',
+    '/ɡ/':'ipa_audio/g.mp3',
+    '/f/':'ipa_audio/f.mp3',
+    '/v/':'ipa_audio/v.mp3',
+    '/θ/':'ipa_audio/th_unvoiced.mp3',
+    '/ð/':'ipa_audio/th_voiced.mp3',
+    '/s/':'ipa_audio/s.mp3',
+    '/z/':'ipa_audio/z.mp3',
+    '/ʃ/':'ipa_audio/sh.mp3',
+    '/ʒ/':'ipa_audio/zh.mp3',
+    '/h/':'ipa_audio/h.mp3',
+    '/m/':'ipa_audio/m.mp3',
+    '/n/':'ipa_audio/n.mp3',
+    '/ŋ/':'ipa_audio/ng.mp3',
+    '/l/':'ipa_audio/l.mp3',
+    '/r/':'ipa_audio/r.mp3',
+    '/j/':'ipa_audio/y.mp3',
+    '/w/':'ipa_audio/w.mp3',
+    '/tʃ/':'ipa_audio/ch.mp3',
+    '/dʒ/':'ipa_audio/jh.mp3',
+    '/tr/':'ipa_audio/tr.mp3',
+    '/dr/':'ipa_audio/dr.mp3',
+    '/ts/':'ipa_audio/ts.mp3',
+    '/dz/':'ipa_audio/dz.mp3'
+};
+
+const IPA_MNEMONICS = {
+    '/iː/':'微笑咧嘴，长“衣”',
+    '/ɑː/':'张大嘴，长“啊”',
+    '/ɔː/':'嘴唇收圆前突，长“奥”',
+    '/ɜː/':'嘴唇放松，长“饿”',
+    '/uː/':'嘴小圆前噘，长“乌”',
+    '/ɪ/':'短衣，口比 /iː/ 更放松',
+    '/e/':'嘴半开，短“哎”',
+    '/æ/':'大口大口，大口“哎”',
+    '/ʌ/':'放松短“啊”',
+    '/ɒ/':'短“奥”，嘴圆',
+    '/ʊ/':'短“乌”，嘴放松',
+    '/ə/':'弱“呃”，最常用弱读',
+    '/eɪ/':'e 到 ɪ，字母 A 音',
+    '/aɪ/':'a 到 ɪ，字母 I 音',
+    '/ɔɪ/':'ɔ 到 ɪ，“奥衣”',
+    '/aʊ/':'a 到 ʊ，“啊乌”',
+    '/əʊ/':'ə 到 ʊ，字母 O 音',
+    '/ɪə/':'ɪ 到 ə，“衣呃”',
+    '/eə/':'e 到 ə，“哎呃”',
+    '/ʊə/':'ʊ 到 ə，“乌呃”',
+    '/p/':'双唇闭，突然送气',
+    '/t/':'舌尖顶齿龈，弹开送气',
+    '/k/':'舌根顶住软腭，后送气',
+    '/b/':'和 /p/ 口型一样，但声带震动',
+    '/d/':'和 /t/ 口型一样，但声带震动',
+    '/ɡ/':'和 /k/ 口型一样，但声带震动',
+    '/f/':'上齿轻咬下唇送气',
+    '/θ/':'轻咬舌尖，送气',
+    '/s/':'牙齿靠近，气流擦出“丝”',
+    '/ʃ/':'嘴微圆，像“师”',
+    '/h/':'轻轻哈气',
+    '/v/':'咬下唇，喉咙震动',
+    '/ð/':'轻咬舌尖，喉咙震动',
+    '/z/':'牙齿靠近，振动出“兹”',
+    '/ʒ/':'圆嘴轻震，像轻“日”',
+    '/r/':'舌尖微卷，嘴唇略圆',
+    '/tʃ/':'“吃”一下，先堵后放',
+    '/tr/':'像“戳”',
+    '/ts/':'像“次”',
+    '/dʒ/':'像“之”',
+    '/dr/':'像“桌”',
+    '/dz/':'像“兹”',
+    '/m/':'双唇闭，鼻音“嗯”',
+    '/n/':'舌尖抵齿龈，鼻音“嗯”',
+    '/ŋ/':'舌根抬起，后鼻音',
+    '/l/':'舌尖抵上齿龈，气流从两边出来',
+    '/w/':'像“乌”，嘴先圆起来',
+    '/j/':'像“耶”，微笑起音'
+};
+
+let activeTab = 'all';
+let keyword = '';
+let voicesCache = [];
+const FEMALE_VOICE_PRIORITY = [
+    'Samantha', 'Karen', 'Moira', 'Tessa', 'Allison', 'Ava', 'Serena', 'Susan', 'Victoria'
+];
+let currentIpaAudio = null;
+
+function loadVoices() {
+    voicesCache = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+}
+
+if ('speechSynthesis' in window) {
+    loadVoices();
+    window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
+function pickPreferredEnglishVoice() {
+    if (!voicesCache.length) return null;
+    for (const name of FEMALE_VOICE_PRIORITY) {
+        const exact = voicesCache.find(v => v.name === name && /^en/i.test(v.lang));
+        if (exact) return exact;
+        const partial = voicesCache.find(v => v.name.includes(name) && /^en/i.test(v.lang));
+        if (partial) return partial;
+    }
+    const englishFemaleByHint = voicesCache.find(v =>
+        /^en/i.test(v.lang) && /(female|woman|samantha|karen|moira|tessa|ava|allison|serena|susan|victoria|flo)/i.test(v.name)
+    );
+    if (englishFemaleByHint) return englishFemaleByHint;
+    const americanEnglish = voicesCache.find(v => v.lang === 'en-US');
+    if (americanEnglish) return americanEnglish;
+    return voicesCache.find(v => /^en/i.test(v.lang)) || null;
+}
+
+function speakText(text, rate = 0.8, pitch = 1.0) {
+    if (!('speechSynthesis' in window)) {
+        alert('当前浏览器不支持语音朗读，请换用较新的 Chrome / Edge / Safari。');
+        return;
+    }
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = rate;
+    utter.pitch = pitch;
+    const voice = pickPreferredEnglishVoice();
+    if (voice) utter.voice = voice;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+}
+
+function speakWordSet(words, rate = 0.68, pitch = 1.0) {
+    if (!words || !words.length) return;
+    if (!('speechSynthesis' in window)) {
+        alert('当前浏览器不支持语音朗读，请换用较新的 Chrome / Edge / Safari。');
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const voice = pickPreferredEnglishVoice();
+    const queue = [...words];
+    const playNext = () => {
+        const word = queue.shift();
+        if (!word) return;
+        const utter = new SpeechSynthesisUtterance(word);
+        utter.lang = 'en-US';
+        utter.rate = rate;
+        utter.pitch = pitch;
+        if (voice) utter.voice = voice;
+        utter.onend = () => {
+            if (queue.length) setTimeout(playNext, 140);
+        };
+        window.speechSynthesis.speak(utter);
+    };
+    playNext();
+}
+
+function playIpaAudio(symbol) {
+    const src = IPA_AUDIO_FILES[symbol];
+    if (!src) {
+        alert(`还没有找到 ${symbol} 的音频文件。`);
+        return;
+    }
+    try {
+        if (currentIpaAudio) {
+            currentIpaAudio.pause();
+            currentIpaAudio.currentTime = 0;
+        }
+        currentIpaAudio = new Audio(src);
+        currentIpaAudio.play().catch(() => {
+            alert('音频播放失败，请确认浏览器允许本地文件播放音频。');
+        });
+    } catch (err) {
+        alert('音频播放失败：' + err.message);
+    }
+}
+
+function getAllItems() {
+    return ['vowels', 'diphthongs', 'consonants'].flatMap(group =>
+        IPA_DATA[group].items.map(item => ({ ...item, group }))
+    );
+}
+
+function getFilteredItems() {
+    let items = activeTab === 'all' ? getAllItems() : IPA_DATA[activeTab].items.map(item => ({ ...item, group: activeTab }));
+    if (!keyword) return items;
+    const kw = keyword.toLowerCase().trim();
+    return items.filter(item => {
+        const exampleText = item.examples.map(x => x.join(' ')).join(' ');
+        const mnemonic = IPA_MNEMONICS[item.symbol] || '';
+        return `${item.symbol} ${item.cn} ${item.cue} ${mnemonic} ${exampleText}`.toLowerCase().includes(kw);
+    });
+}
+
+function renderStats() {
+    const items = getAllItems();
+    const exampleCount = items.reduce((sum, item) => sum + item.examples.length, 0);
+    const stats = [
+        { value: '48', label: '国际音标总数' },
+        { value: '12', label: '单元音' },
+        { value: '8', label: '双元音' },
+        { value: '28', label: '辅音与组合' },
+        { value: String(exampleCount), label: '示例词数量' }
+    ];
+    document.getElementById('stats').innerHTML = stats.map(s => `
+        <div class="stat-card">
+            <div class="stat-value">${s.value}</div>
+            <div class="stat-label">${s.label}</div>
+        </div>
+    `).join('');
+}
+
+function renderTabs() {
+    document.getElementById('tabBar').innerHTML = TAB_META.map(tab => `
+        <button class="tab-btn ${tab.key === activeTab ? 'active' : ''}" type="button" onclick="switchTab('${tab.key}')">${tab.title}</button>
+    `).join('');
+}
+
+function renderHeader() {
+    const titleEl = document.getElementById('sectionTitle');
+    const descEl = document.getElementById('sectionDesc');
+    if (activeTab === 'all') {
+        titleEl.textContent = '国际音标总览';
+        descEl.textContent = '当前展示英语 48 个国际音标（英式 RP）。左侧“音标发音”按钮播放本地音频，右侧仍可听示例词。';
+        return;
+    }
+    titleEl.textContent = IPA_DATA[activeTab].title;
+    descEl.textContent = IPA_DATA[activeTab].desc;
+}
+
+function renderGrid() {
+    renderTabs();
+    renderHeader();
+    const items = getFilteredItems();
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    if (!items.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+    grid.innerHTML = items.map(item => `
+        <div class="ipa-card">
+            <div class="ipa-top">
+                <div>
+                    <div class="ipa-symbol">${item.symbol}</div>
+                    <div class="ipa-cn">${item.cn}</div>
+                    <div class="ipa-note">口型提示：${item.cue}</div>
+                    ${IPA_MNEMONICS[item.symbol] ? `<div class="ipa-mnemonic"><strong>速记口诀：</strong>${IPA_MNEMONICS[item.symbol]}</div>` : ''}
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end">
+                    <button class="btn btn-sound" type="button" onclick="playIpaAudio('${escapeJs(item.symbol)}')">音标发音</button>
+                    <button class="btn btn-light" type="button" onclick="speakText('${escapeJs(item.examples[0][0])}', 0.68, 1.0)">标准例词</button>
+                </div>
+            </div>
+            <div class="example-title">
+                左侧按钮是音标本身的独立音频；下面这些是例词发音。建议先听音标，再听例词做对应。
+                <button class="btn btn-light" type="button" style="margin-left:8px" onclick="speakWordSet(['${escapeJs(item.examples[0][0])}','${escapeJs(item.examples[1][0])}','${escapeJs(item.examples[2][0])}'], 0.66, 1.0)">连读3词</button>
+            </div>
+            <div class="example-list">
+                ${item.examples.map(ex => `
+                    <span class="example-chip">
+                        <span class="example-word">${ex[0]}</span>
+                        <span class="example-ipa">${ex[1]}</span>
+                        <button class="btn btn-light" type="button" onclick="speakText('${escapeJs(ex[0])}', 0.72, 1.0)">发音</button>
+                    </span>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function switchTab(tab) {
+    activeTab = tab;
+    renderGrid();
+}
+
+function escapeJs(text) {
+    return String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+document.getElementById('searchInput').addEventListener('input', (e) => {
+    keyword = e.target.value;
+    renderGrid();
+});
+
+renderStats();
+renderGrid();
+</script>
+</body>
+</html>

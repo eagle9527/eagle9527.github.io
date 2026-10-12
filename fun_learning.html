@@ -273,6 +273,7 @@ body.modal-open { overflow: hidden; }
     cursor: pointer;
 }
 .modal-body { padding: 30px; }
+.modal.ipa-modal { max-width: 980px; }
 .question-area {
     background: #f8f9fa;
     border-radius: 16px;
@@ -323,6 +324,166 @@ body.modal-open { overflow: hidden; }
     color: #721c24;
 }
 .option-btn:disabled { cursor: default; }
+.option-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+.option-text-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    flex: 1;
+}
+.option-main {
+    word-break: break-word;
+}
+.option-ipa {
+    font-size: 13px;
+    color: #667085;
+}
+.english-tools {
+    margin: -6px 0 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.word-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #eef7ff;
+    border: 1px solid #cfe6ff;
+    font-size: 14px;
+    color: #1f2d3d;
+}
+.word-chip strong {
+    color: #0f6cbd;
+}
+.word-chip .ipa {
+    color: #667085;
+    font-size: 13px;
+}
+.speak-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 999px;
+    background: #27ae60;
+    color: #fff;
+    padding: 6px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 1;
+    white-space: nowrap;
+}
+.speak-btn:hover {
+    background: #1e8449;
+}
+.speak-btn.inline {
+    padding: 5px 8px;
+    font-size: 11px;
+}
+.ipa-tabs {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+.ipa-tab-btn {
+    border: none;
+    border-radius: 999px;
+    background: #eaf7ef;
+    color: #1e8449;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.ipa-tab-btn.active {
+    background: #27ae60;
+    color: #fff;
+}
+.ipa-panel {
+    background: #f8f9fa;
+    border-radius: 18px;
+    padding: 20px;
+}
+.ipa-panel-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1f2d3d;
+    margin-bottom: 6px;
+}
+.ipa-panel-desc {
+    font-size: 14px;
+    color: #667085;
+    margin-bottom: 18px;
+    line-height: 1.7;
+}
+.ipa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+}
+.ipa-card {
+    background: #fff;
+    border: 1px solid #dbe8f5;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 20px rgba(15, 108, 189, 0.06);
+}
+.ipa-symbol-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+.ipa-symbol {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0f6cbd;
+}
+.ipa-symbol-btn {
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+}
+.ipa-symbol-btn:hover {
+    opacity: 0.8;
+}
+.ipa-read {
+    font-size: 14px;
+    color: #475467;
+    margin-bottom: 10px;
+    min-height: 40px;
+    line-height: 1.5;
+}
+.ipa-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.ipa-word-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #eef7ff;
+    border: 1px solid #cfe6ff;
+    font-size: 13px;
+    color: #1f2d3d;
+}
 .explanation {
     margin-top: 15px;
     padding: 15px;
@@ -1435,6 +1596,16 @@ const ENGLISH_TOPICS = {
     ],
 };
 
+const ENGLISH_EXTRA_TOPICS = [
+    {
+        id:'e_ipa',
+        name:'国际音标专项',
+        desc:'48个国际音标、长短元音、辅音分类、字母与发音对应、常见单词发音',
+        icon:'🗣️',
+        unlockLevel:0
+    }
+];
+
 /* ==================== 各学科题目生成 ==================== */
 
 /* ========== 语文题目生成器（137专题全覆盖·大题库+关键词正则10题/专题） ========== */
@@ -2172,7 +2343,20 @@ function generateMathQuestions(topicId, grade) {
             () => { const ranges=[[2,10,4],[2,20,8],[2,30,10],[2,50,15]]; const [lo,hi,cnt]=ranges[rand(0,3)]; return {q:`${lo}~${hi} 之间的质数共有多少个？`,options:[`${cnt-2}个`,`${cnt-1}个`,`${cnt}个`,`${cnt+2}个`],correct:2,explain:`${lo}~${hi}之间的质数共${cnt}个，可以查质数表确认`}; },
             () => { return {q:'两个质数相乘的积一定是？',options:['质数','合数','奇数','偶数'],correct:1,explain:'两个质数的乘积，因数包括1、这两个质数本身、还有它们的积 → 至少4个因数，是合数'}; },
             () => { const r=rand(0,3); const qs=['下列判断正确的是？','下列说法正确的是？','哪个选项是正确的？','以下命题正确的是？']; return {q:qs[r],options:['所有奇数都是质数','所有偶数都是合数','两个质数的和一定是偶数','2是最小的质数，也是唯一的偶质数'],correct:3,explain:'A错：9是奇数但合数；B错：2是偶数但质数；C错：2+3=5奇数；只有D正确'}; },
-            ()=>{const r=rand(0,1);const n=r===0?rand(10,30):rand(20,50);return{q:r===0?`${n} 以内最大的质数是多少？`:`不超过 ${n} 的质数中最大的是？`,options:[`${n-1}`,`${n-3}`,`${[29,23,19,47,43,41,37][rand(0,7)]}`,`${[25,27,33,45][rand(0,4)]}`],correct:2,explain:' 可以依次从大到小判断每个数的因数个数，找到最后一个只有 2 个因数的数 '};},
+            () => {
+                const r = rand(0,1);
+                const n = r === 0 ? rand(10,30) : rand(20,50);
+                const primeChoices = [29,23,19,47,43,41,37];
+                const compositeChoices = [25,27,33,45];
+                const answer = primeChoices[rand(0, primeChoices.length - 1)];
+                const distractor = compositeChoices[rand(0, compositeChoices.length - 1)];
+                return {
+                    q: r === 0 ? `${n} 以内最大的质数是多少？` : `不超过 ${n} 的质数中最大的是？`,
+                    options: [`${n-1}`, `${n-3}`, `${answer}`, `${distractor}`],
+                    correct: 2,
+                    explain: '可以依次从大到小判断每个数的因数个数，找到最后一个只有2个因数的数。'
+                };
+            },
             () => { return {q:'100 以内一共有多少个质数？（记住25个）',options:['20个','25个','30个','50个'],correct:1,explain:'100以内质数共25个：2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97'}; },
             () => { return {q:'两个不同质数的最大公因数一定是？',options:['较大数','较小数','1','它们的乘积'],correct:2,explain:'两个不同质数只有公因数1，所以互质，最大公因数=1（最小公倍数=乘积）'}; },
             () => { const r=rand(0,1); return {q:r===0?'判断：所有的质数都是奇数，对吗？':'判断：所有的合数都是偶数，对吗？',options:r===0?['不对，2是质数但是偶数','对','不对，9是质数','无法判断']:['不对，9是合数但是奇数','对','不对，2是合数','无法判断'],correct:0,explain:r===0?'2是唯一的偶质数，其余质数都是奇数，但说"所有质数都是奇数"是错的（漏了2）':'9、15、21等都是奇数又是合数，所以不是所有合数都是偶数'}; },
@@ -3491,6 +3675,26 @@ function generateMathQuestions(topicId, grade) {
 
 /* ========== 英语题目生成器（121专题全覆盖·大题库+关键词正则10题/专题） ========== */
 function generateEnglishQuestions(topicId, grade) {
+    if (topicId === 'e_ipa') {
+        const ipaQuestions = [
+            {q:'单词 apple 中字母 a 常发哪个国际音标？',options:['/eɪ/','/æ/','/ɑː/','/ʌ/'],correct:1,explain:'apple 读 /ˈaepəl/，开头 a 发短元音 /æ/，像“哎呀”的前半口型。'},
+            {q:'单词 book 中字母 oo 常发哪个国际音标？',options:['/uː/','/ʊ/','/ɔː/','/ɒ/'],correct:1,explain:'book 读 /bʊk/，oo 在这里发短音 /ʊ/，不是长音 /uː/。'},
+            {q:'下列哪个是长元音？',options:['/ɪ/','/e/','/iː/','/ʊ/'],correct:2,explain:'带“ː”的通常是长元音，/iː/ 是长元音，发音更长。'},
+            {q:'下列哪个是短元音？',options:['/uː/','/ɔː/','/ɑː/','/e/'],correct:3,explain:'/e/ 是短元音；/uː/ /ɔː/ /ɑː/ 都是长元音。'},
+            {q:'字母组合 sh 在单词 she 中通常发什么音？',options:['/s/','/z/','/ʃ/','/tʃ/'],correct:2,explain:'she 读 /ʃiː/，sh 常发 /ʃ/，像“嘘”的声音。'},
+            {q:'单词 chair 开头 ch 通常发什么音？',options:['/k/','/ʃ/','/tʃ/','/s/'],correct:2,explain:'chair 读 /tʃer/，ch 常发 /tʃ/，像“吃”的起音。'},
+            {q:'下列哪个音标是浊辅音？',options:['/p/','/t/','/k/','/b/'],correct:3,explain:'/b/ 发音时声带振动，是浊辅音；/p/ /t/ /k/ 是清辅音。'},
+            {q:'字母 th 在单词 this 中通常发什么音？',options:['/θ/','/ð/','/s/','/z/'],correct:1,explain:'this 读 /ðɪs/，这里 th 发浊辅音 /ð/；think 才常发 /θ/。'},
+            {q:'单词 think 中 th 通常发什么音？',options:['/ð/','/θ/','/f/','/h/'],correct:1,explain:'think 读 /θɪŋk/，th 在这里发清辅音 /θ/。'},
+            {q:'下列哪组音标都是双元音？',options:['/iː/ /uː/','/eɪ/ /aɪ/','/æ/ /e/','/p/ /b/'],correct:1,explain:'/eɪ/ 和 /aɪ/ 都是双元音，一个音滑向另一个音。'},
+            {q:'单词 cat 的音标是哪一个？',options:['/ket/','/kɑːt/','/kaet/','/kʌt/'],correct:2,explain:'cat 读 /kaet/，中间是短元音 /æ/。'},
+            {q:'单词 see 的音标更接近哪一个？',options:['/sɪ/','/siː/','/se/','/saɪ/'],correct:1,explain:'see 读 /siː/，ee 常发长元音 /iː/。'},
+            {q:'字母 name 中字母 a 常发什么音？',options:['/æ/','/eɪ/','/ɑː/','/ə/'],correct:1,explain:'name 读 /neɪm/，a_e 结构里 a 常发字母音 /eɪ/。'},
+            {q:'下列哪个单词里含有 /ʌ/ 这个音？',options:['sun','bike','nose','she'],correct:0,explain:'sun 读 /sʌn/，中间就是短元音 /ʌ/。'},
+            {q:'单词 dog 里的元音更接近哪一个音标？',options:['/ɒ/','/iː/','/eɪ/','/uː/'],correct:0,explain:'dog 常读 /dɒɡ/ 或美式 /dɔːɡ/，小学阶段先记作更接近 /ɒ/ 的短音即可。'},
+        ];
+        return shuffle([...ipaQuestions]).slice(0, 10);
+    }
     // ===================== 1. 高频核心专题精选题库（手写·10题/组） =====================
     // 注意：qBank return会在定义_fin后调用（见后面），此处先定义题库
     const qBank = {
@@ -3780,12 +3984,502 @@ function loadState() {
     return false;
 }
 
+const EN_PRON_DICT = {
+    'a': '/eɪ/', 'b': '/biː/', 'c': '/siː/', 'd': '/diː/', 'e': '/iː/', 'f': '/ef/', 'g': '/dʒiː/',
+    'h': '/eɪtʃ/', 'i': '/aɪ/', 'j': '/dʒeɪ/', 'k': '/keɪ/', 'l': '/el/', 'm': '/em/', 'n': '/en/',
+    'o': '/oʊ/', 'p': '/piː/', 'q': '/kjuː/', 'r': '/ɑːr/', 's': '/es/', 't': '/tiː/', 'u': '/juː/',
+    'v': '/viː/', 'w': '/ˈdʌbljuː/', 'x': '/eks/', 'y': '/waɪ/', 'z': '/ziː/',
+    'apple': '/ˈaepəl/', 'banana': '/bəˈnænə/', 'orange': '/ˈɔːrɪndʒ/', 'pear': '/per/', 'book': '/bʊk/',
+    'pen': '/pen/', 'pencil': '/ˈpens(ə)l/', 'ruler': '/ˈruːlər/', 'bag': '/baeɡ/', 'school': '/skuːl/',
+    'cat': '/kaet/', 'dog': '/dɔːɡ/', 'panda': '/ˈpaendə/', 'water': '/ˈwɔːtər/', 'teacher': '/ˈtiːtʃər/',
+    'student': '/ˈstuːd(ə)nt/', 'doctor': '/ˈdɑːktər/', 'driver': '/ˈdraɪvər/', 'plane': '/pleɪn/',
+    'bike': '/baɪk/', 'red': '/red/', 'blue': '/bluː/', 'green': '/ɡriːn/', 'yellow': '/ˈjeloʊ/',
+    'white': '/waɪt/', 'black': '/blaek/', 'pink': '/pɪŋk/', 'orange color': '/ˈɔːrɪndʒ/', 'purple': '/ˈpɜːrp(ə)l/',
+    'brown': '/braʊn/', 'father': '/ˈfɑːðər/', 'mother': '/ˈmʌðər/', 'brother': '/ˈbrʌðər/', 'sister': '/ˈsɪstər/',
+    'family': '/ˈfaeməli/', 'grandpa': '/ˈɡraen(d)pɑː/', 'grandma': '/ˈɡraen(d)mɑː/', 'aunt': '/aent/', 'uncle': '/ˈʌŋk(ə)l/',
+    'spring': '/sprɪŋ/', 'summer': '/ˈsʌmər/', 'autumn': '/ˈɔːtəm/', 'winter': '/ˈwɪntər/', 'sunny': '/ˈsʌni/',
+    'rainy': '/ˈreɪni/', 'snowy': '/ˈsnoʊi/', 'windy': '/ˈwɪndi/', 'happy': '/ˈhaepi/', 'hello': '/həˈloʊ/',
+    'goodbye': '/ˌɡʊdˈbaɪ/', 'sorry': '/ˈsɑːri/', 'please': '/pliːz/', 'morning': '/ˈmɔːrnɪŋ/', 'afternoon': '/ˌaeftərˈnuːn/',
+    'evening': '/ˈiːvnɪŋ/', 'night': '/naɪt/', 'good morning': '/ɡʊd ˈmɔːrnɪŋ/', 'good afternoon': '/ɡʊd ˌaeftərˈnuːn/',
+    'good evening': '/ɡʊd ˈiːvnɪŋ/', 'good night': '/ɡʊd naɪt/', 'thank you': '/θæŋk juː/',
+    'you are welcome': '/juː ɑːr ˈwelkəm/', 'how are you': '/haʊ ɑːr juː/', 'what is your name': '/wʌt ɪz jʊr neɪm/',
+    'how old are you': '/haʊ oʊld ɑːr juː/', 'what time is it': '/wʌt taɪm ɪz ɪt/', 'can i help you': '/kæn aɪ help juː/',
+    'this is tom speaking': '/ðɪs ɪz tɑːm ˈspiːkɪŋ/', 'help yourself': '/help jɔːrˈself/', 'by plane': '/baɪ pleɪn/',
+    'go': '/ɡoʊ/', 'goes': '/ɡoʊz/', 'have': '/haev/', 'has': '/haez/', 'watch': '/wɑːtʃ/', 'watches': '/ˈwɑːtʃɪz/',
+    'study': '/ˈstʌdi/', 'studies': '/ˈstʌdiz/', 'tall': '/tɔːl/', 'taller': '/ˈtɔːlər/', 'tallest': '/ˈtɔːləst/',
+    'can': '/kaen/', 'swim': '/swɪm/', 'book is mine': '/bʊk ɪz maɪn/', 'mine': '/maɪn/', 'yours': '/jʊrz/',
+    'myself': '/maɪˈself/', 'yourself': '/jɔːrˈself/', 'read': '/riːd/', 'reading': '/ˈriːdɪŋ/', 'write': '/raɪt/',
+    'writing': '/ˈraɪtɪŋ/', 'running': '/ˈrʌnɪŋ/', 'went': '/went/', 'saw': '/sɔː/', 'visited': '/ˈvɪzɪtɪd/'
+};
+
+const EN_SPEECH_STOP_WORDS = new Set([
+    'a','an','the','is','am','are','was','were','be','to','of','in','on','at','for','by','and','or','but',
+    'i','you','he','she','it','we','they','my','your','his','her','our','their','this','that','these','those'
+]);
+
+const IPA_REFERENCE_TABS = {
+    vowels: {
+        title: '单元音 12 个',
+        desc: '先学口型比较稳定的单元音，重点区分长短音，比如 /iː/ 和 /ɪ/、/uː/ 和 /ʊ/。',
+        items: [
+            { symbol:'/iː/', read:'长音“衣”', examples:['see','teacher'] },
+            { symbol:'/ɪ/', read:'短音“衣”，更短更轻', examples:['sit','big'] },
+            { symbol:'/e/', read:'短音“诶”', examples:['pen','desk'] },
+            { symbol:'/æ/', read:'张大嘴的“啊”前音', examples:['cat','apple'] },
+            { symbol:'/ʌ/', read:'短音“阿”，嘴巴自然张开', examples:['sun','mother'] },
+            { symbol:'/ɑː/', read:'长音“啊”', examples:['car','father'] },
+            { symbol:'/ɒ/', read:'短音“哦”', examples:['dog','box'] },
+            { symbol:'/ɔː/', read:'长音“奥”', examples:['horse','morning'] },
+            { symbol:'/ʊ/', read:'短音“乌”', examples:['book','good'] },
+            { symbol:'/uː/', read:'长音“乌”', examples:['school','blue'] },
+            { symbol:'/ə/', read:'轻读“呃”，弱读常见', examples:['teacher','banana'] },
+            { symbol:'/ɜː/', read:'长音“呃”', examples:['girl','bird'] }
+        ]
+    },
+    diphthongs: {
+        title: '双元音 8 个',
+        desc: '双元音是“从一个音滑向另一个音”，读的时候口型会动起来。',
+        items: [
+            { symbol:'/eɪ/', read:'从 /e/ 滑向 /ɪ/', examples:['name','plane'] },
+            { symbol:'/aɪ/', read:'从“啊”滑向 /ɪ/', examples:['bike','five'] },
+            { symbol:'/ɔɪ/', read:'从“奥”滑向 /ɪ/', examples:['boy','toy'] },
+            { symbol:'/aʊ/', read:'从“啊”滑向 /ʊ/', examples:['house','mouth'] },
+            { symbol:'/oʊ/', read:'从“哦”滑向 /ʊ/', examples:['go','nose'] },
+            { symbol:'/ɪə/', read:'从 /ɪ/ 滑向弱读 /ə/', examples:['ear','here'] },
+            { symbol:'/eə/', read:'从 /e/ 滑向弱读 /ə/', examples:['hair','pear'] },
+            { symbol:'/ʊə/', read:'从 /ʊ/ 滑向弱读 /ə/', examples:['tour','poor'] }
+        ]
+    },
+    consonants: {
+        title: '辅音 28 个',
+        desc: '辅音更看送气、声带振动和舌位。可以先成对记清浊，再单独记鼻音、边音和半元音。',
+        items: [
+            { symbol:'/p/', read:'清辅音 p，送气', examples:['pen','pig'] },
+            { symbol:'/b/', read:'浊辅音 b，声带振动', examples:['book','bag'] },
+            { symbol:'/t/', read:'清辅音 t', examples:['tea','teacher'] },
+            { symbol:'/d/', read:'浊辅音 d', examples:['dog','desk'] },
+            { symbol:'/k/', read:'清辅音 k', examples:['cat','kite'] },
+            { symbol:'/ɡ/', read:'浊辅音 g', examples:['go','green'] },
+            { symbol:'/f/', read:'上齿轻碰下唇', examples:['fish','father'] },
+            { symbol:'/v/', read:'和 /f/ 口型像，但要振动', examples:['very','visit'] },
+            { symbol:'/θ/', read:'咬舌轻吹气', examples:['think','thank'] },
+            { symbol:'/ð/', read:'咬舌并振动', examples:['this','that'] },
+            { symbol:'/s/', read:'清辅音 s', examples:['see','sun'] },
+            { symbol:'/z/', read:'浊辅音 z', examples:['zoo','busy'] },
+            { symbol:'/ʃ/', read:'“嘘”的音', examples:['she','ship'] },
+            { symbol:'/ʒ/', read:'浊音，像法语音', examples:['usually','vision'] },
+            { symbol:'/tʃ/', read:'“吃”的起音', examples:['chair','teacher'] },
+            { symbol:'/dʒ/', read:'“j”常见发音', examples:['juice','orange'] },
+            { symbol:'/tr/', read:'卷舌清辅音组合', examples:['tree','train'] },
+            { symbol:'/dr/', read:'卷舌浊辅音组合', examples:['dress','driver'] },
+            { symbol:'/ts/', read:'清辅音组合', examples:['cats','its'] },
+            { symbol:'/dz/', read:'浊辅音组合', examples:['beds','hands'] },
+            { symbol:'/m/', read:'鼻音 m，闭嘴发音', examples:['mother','milk'] },
+            { symbol:'/n/', read:'鼻音 n，舌尖顶上齿龈', examples:['name','nine'] },
+            { symbol:'/ŋ/', read:'后鼻音 ng', examples:['sing','long'] },
+            { symbol:'/h/', read:'哈气音 h', examples:['hello','happy'] },
+            { symbol:'/l/', read:'边音 l', examples:['leg','blue'] },
+            { symbol:'/r/', read:'卷舌音 r', examples:['red','ruler'] },
+            { symbol:'/j/', read:'像汉语“耶”', examples:['yes','yellow'] },
+            { symbol:'/w/', read:'像汉语“乌”起音', examples:['we','water'] }
+        ]
+    }
+};
+
+const IPA_AUDIO_MAP = {
+    '/iː/': { kind:'vowel', duration:0.6, formants:[300,2300,3000] },
+    '/ɪ/': { kind:'vowel', duration:0.38, formants:[400,2000,2550] },
+    '/e/': { kind:'vowel', duration:0.38, formants:[530,1850,2500] },
+    '/æ/': { kind:'vowel', duration:0.42, formants:[660,1700,2400] },
+    '/ʌ/': { kind:'vowel', duration:0.36, formants:[640,1200,2400] },
+    '/ɑː/': { kind:'vowel', duration:0.58, formants:[700,1100,2450] },
+    '/ɒ/': { kind:'vowel', duration:0.36, formants:[570,840,2410] },
+    '/ɔː/': { kind:'vowel', duration:0.56, formants:[500,900,2400] },
+    '/ʊ/': { kind:'vowel', duration:0.34, formants:[440,1020,2240] },
+    '/uː/': { kind:'vowel', duration:0.58, formants:[300,870,2240] },
+    '/ə/': { kind:'vowel', duration:0.28, formants:[500,1500,2500] },
+    '/ɜː/': { kind:'vowel', duration:0.56, formants:[470,1350,1690] },
+    '/eɪ/': { kind:'glide', duration:0.7, from:[530,1850,2500], to:[300,2300,3000] },
+    '/aɪ/': { kind:'glide', duration:0.68, from:[700,1200,2400], to:[400,2000,2550] },
+    '/ɔɪ/': { kind:'glide', duration:0.68, from:[500,900,2400], to:[400,2000,2550] },
+    '/aʊ/': { kind:'glide', duration:0.68, from:[700,1200,2400], to:[300,870,2240] },
+    '/oʊ/': { kind:'glide', duration:0.68, from:[500,1000,2400], to:[300,870,2240] },
+    '/ɪə/': { kind:'glide', duration:0.68, from:[400,2000,2550], to:[500,1500,2500] },
+    '/eə/': { kind:'glide', duration:0.68, from:[530,1850,2500], to:[500,1500,2500] },
+    '/ʊə/': { kind:'glide', duration:0.68, from:[440,1020,2240], to:[500,1500,2500] },
+    '/p/': { kind:'plosive', duration:0.16, voiced:false, burst:1400 },
+    '/b/': { kind:'plosive', duration:0.18, voiced:true, burst:1100 },
+    '/t/': { kind:'plosive', duration:0.15, voiced:false, burst:2200 },
+    '/d/': { kind:'plosive', duration:0.18, voiced:true, burst:1800 },
+    '/k/': { kind:'plosive', duration:0.16, voiced:false, burst:1500 },
+    '/ɡ/': { kind:'plosive', duration:0.18, voiced:true, burst:1350 },
+    '/f/': { kind:'fricative', duration:0.34, voiced:false, center:4200 },
+    '/v/': { kind:'fricative', duration:0.34, voiced:true, center:3600 },
+    '/θ/': { kind:'fricative', duration:0.34, voiced:false, center:5000 },
+    '/ð/': { kind:'fricative', duration:0.34, voiced:true, center:3600 },
+    '/s/': { kind:'fricative', duration:0.34, voiced:false, center:6500 },
+    '/z/': { kind:'fricative', duration:0.34, voiced:true, center:5200 },
+    '/ʃ/': { kind:'fricative', duration:0.36, voiced:false, center:3000 },
+    '/ʒ/': { kind:'fricative', duration:0.36, voiced:true, center:2600 },
+    '/h/': { kind:'fricative', duration:0.28, voiced:false, center:1800 },
+    '/m/': { kind:'sonorant', duration:0.36, formants:[250,1100,2100] },
+    '/n/': { kind:'sonorant', duration:0.34, formants:[300,1500,2500] },
+    '/ŋ/': { kind:'sonorant', duration:0.34, formants:[260,2000,2850] },
+    '/l/': { kind:'sonorant', duration:0.34, formants:[350,1300,2600] },
+    '/r/': { kind:'sonorant', duration:0.34, formants:[320,1100,1800] },
+    '/j/': { kind:'sonorant', duration:0.3, formants:[280,2200,3000] },
+    '/w/': { kind:'sonorant', duration:0.3, formants:[300,900,2200] },
+    '/tʃ/': { kind:'sequence', parts:['/t/','/ʃ/'] },
+    '/dʒ/': { kind:'sequence', parts:['/d/','/ʒ/'] },
+    '/tr/': { kind:'sequence', parts:['/t/','/r/'] },
+    '/dr/': { kind:'sequence', parts:['/d/','/r/'] },
+    '/ts/': { kind:'sequence', parts:['/t/','/s/'] },
+    '/dz/': { kind:'sequence', parts:['/d/','/z/'] }
+};
+
+const IPA_TTS_MAP = {
+    '/iː/':'ee', '/ɪ/':'ih', '/e/':'eh', '/æ/':'aeh', '/ʌ/':'uh', '/ɑː/':'ah',
+    '/ɒ/':'o', '/ɔː/':'aw', '/ʊ/':'oo', '/uː/':'ooh', '/ə/':'uh', '/ɜː/':'er',
+    '/eɪ/':'ay', '/aɪ/':'eye', '/ɔɪ/':'oy', '/aʊ/':'ow', '/oʊ/':'oh', '/ɪə/':'ear',
+    '/eə/':'air', '/ʊə/':'poor',
+    '/p/':'puh', '/b/':'buh', '/t/':'tuh', '/d/':'duh', '/k/':'kuh', '/ɡ/':'guh',
+    '/f/':'fff', '/v/':'vvv', '/θ/':'thhh', '/ð/':'thh', '/s/':'sss', '/z/':'zzz',
+    '/ʃ/':'shh', '/ʒ/':'zh', '/tʃ/':'ch', '/dʒ/':'j', '/tr/':'tr', '/dr/':'dr',
+    '/ts/':'ts', '/dz/':'dz', '/m/':'mmm', '/n/':'nnn', '/ŋ/':'ng', '/h/':'hhh',
+    '/l/':'lll', '/r/':'rrr', '/j/':'yuh', '/w/':'wuh'
+};
+
+let __ipaAudioCtx = null;
+let __ipaActiveNodes = [];
+let __ipaMasterGain = null;
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function normalizeEnglishKey(text) {
+    return String(text || '')
+        .toLowerCase()
+        .replace(/[^a-z'\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function speakEnglish(text, options) {
+    const phrase = String(text || '').trim();
+    if (!phrase) return;
+    if (!('speechSynthesis' in window)) {
+        alert('当前浏览器不支持语音朗读，请换用较新的 Chrome / Edge / Safari。');
+        return;
+    }
+    const utter = new SpeechSynthesisUtterance(phrase);
+    utter.lang = 'en-US';
+    utter.rate = options && options.rate ? options.rate : 0.9;
+    utter.pitch = options && options.pitch ? options.pitch : 1;
+    const voices = window.speechSynthesis.getVoices ? window.speechSynthesis.getVoices() : [];
+    const englishVoice = voices.find(v => /^en/i.test(v.lang));
+    if (englishVoice) utter.voice = englishVoice;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+}
+
+function getIpaAudioContext() {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!__ipaAudioCtx) {
+        __ipaAudioCtx = new AC();
+        __ipaMasterGain = __ipaAudioCtx.createGain();
+        __ipaMasterGain.gain.value = 1.9;
+        __ipaMasterGain.connect(__ipaAudioCtx.destination);
+    }
+    return __ipaAudioCtx;
+}
+
+function stopIpaAudio() {
+    __ipaActiveNodes.forEach(node => {
+        try { if (node.stop) node.stop(0); } catch (e) {}
+        try { if (node.disconnect) node.disconnect(); } catch (e) {}
+    });
+    __ipaActiveNodes = [];
+}
+
+function trackIpaNode(node) {
+    __ipaActiveNodes.push(node);
+    return node;
+}
+
+function createNoiseSource(ctx, duration) {
+    const length = Math.max(1, Math.floor(ctx.sampleRate * duration));
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1;
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    return source;
+}
+
+function scheduleGain(gain, start, attack, sustain, release, peak) {
+    const level = peak == null ? 0.14 : peak;
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(level, start + attack);
+    gain.gain.setValueAtTime(level, start + attack + sustain);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + attack + sustain + release);
+}
+
+function playVowelLike(ctx, start, conf) {
+    const duration = conf.duration || 0.4;
+    const formants = conf.formants || conf.from;
+    formants.forEach((freq, idx) => {
+        const osc = trackIpaNode(ctx.createOscillator());
+        const gain = trackIpaNode(ctx.createGain());
+        osc.type = idx === 0 ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(freq, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        scheduleGain(gain, start, 0.03, Math.max(0.08, duration - 0.09), 0.06, idx === 0 ? 0.14 : idx === 1 ? 0.1 : 0.06);
+        osc.connect(gain).connect(__ipaMasterGain || ctx.destination);
+        osc.start(start);
+        osc.stop(start + duration + 0.08);
+    });
+    const buzz = trackIpaNode(ctx.createOscillator());
+    const buzzGain = trackIpaNode(ctx.createGain());
+    buzz.type = 'sawtooth';
+    buzz.frequency.setValueAtTime(120, start);
+    scheduleGain(buzzGain, start, 0.02, Math.max(0.06, duration - 0.08), 0.05, 0.03);
+    buzz.connect(buzzGain).connect(__ipaMasterGain || ctx.destination);
+    buzz.start(start);
+    buzz.stop(start + duration + 0.06);
+    return duration;
+}
+
+function playGlide(ctx, start, conf) {
+    const duration = conf.duration || 0.6;
+    conf.from.forEach((fromFreq, idx) => {
+        const toFreq = conf.to[idx];
+        const osc = trackIpaNode(ctx.createOscillator());
+        const gain = trackIpaNode(ctx.createGain());
+        osc.type = idx === 0 ? 'triangle' : 'sine';
+        osc.frequency.setValueAtTime(fromFreq, start);
+        osc.frequency.linearRampToValueAtTime(toFreq, start + duration);
+        scheduleGain(gain, start, 0.03, Math.max(0.1, duration - 0.09), 0.06, idx === 0 ? 0.13 : idx === 1 ? 0.09 : 0.05);
+        osc.connect(gain).connect(__ipaMasterGain || ctx.destination);
+        osc.start(start);
+        osc.stop(start + duration + 0.08);
+    });
+    const buzz = trackIpaNode(ctx.createOscillator());
+    const buzzGain = trackIpaNode(ctx.createGain());
+    buzz.type = 'sawtooth';
+    buzz.frequency.setValueAtTime(125, start);
+    scheduleGain(buzzGain, start, 0.02, Math.max(0.08, duration - 0.08), 0.05, 0.026);
+    buzz.connect(buzzGain).connect(__ipaMasterGain || ctx.destination);
+    buzz.start(start);
+    buzz.stop(start + duration + 0.06);
+    return duration;
+}
+
+function playFricative(ctx, start, conf) {
+    const duration = conf.duration || 0.3;
+    const noise = trackIpaNode(createNoiseSource(ctx, duration + 0.05));
+    const filter = trackIpaNode(ctx.createBiquadFilter());
+    const gain = trackIpaNode(ctx.createGain());
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(conf.center || 4000, start);
+    filter.Q.setValueAtTime(0.8, start);
+    scheduleGain(gain, start, 0.01, Math.max(0.08, duration - 0.04), 0.03, conf.voiced ? 0.16 : 0.22);
+    noise.connect(filter).connect(gain).connect(__ipaMasterGain || ctx.destination);
+    noise.start(start);
+    noise.stop(start + duration + 0.04);
+    if (conf.voiced) {
+        const buzz = trackIpaNode(ctx.createOscillator());
+        const buzzGain = trackIpaNode(ctx.createGain());
+        buzz.type = 'sawtooth';
+        buzz.frequency.setValueAtTime(118, start);
+        scheduleGain(buzzGain, start, 0.01, Math.max(0.08, duration - 0.04), 0.03, 0.03);
+        buzz.connect(buzzGain).connect(__ipaMasterGain || ctx.destination);
+        buzz.start(start);
+        buzz.stop(start + duration + 0.04);
+    }
+    return duration;
+}
+
+function playPlosive(ctx, start, conf) {
+    const duration = conf.duration || 0.18;
+    const burstStart = start + 0.03;
+    const noise = trackIpaNode(createNoiseSource(ctx, duration));
+    const filter = trackIpaNode(ctx.createBiquadFilter());
+    const gain = trackIpaNode(ctx.createGain());
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(conf.burst || 1600, burstStart);
+    filter.Q.setValueAtTime(0.7, burstStart);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(0.32, burstStart + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+    noise.connect(filter).connect(gain).connect(__ipaMasterGain || ctx.destination);
+    noise.start(start);
+    noise.stop(start + duration + 0.03);
+    if (conf.voiced) {
+        const buzz = trackIpaNode(ctx.createOscillator());
+        const buzzGain = trackIpaNode(ctx.createGain());
+        buzz.type = 'triangle';
+        buzz.frequency.setValueAtTime(115, start);
+        scheduleGain(buzzGain, start, 0.01, Math.max(0.05, duration - 0.05), 0.02, 0.035);
+        buzz.connect(buzzGain).connect(__ipaMasterGain || ctx.destination);
+        buzz.start(start);
+        buzz.stop(start + duration + 0.02);
+    }
+    return duration;
+}
+
+function playSonorant(ctx, start, conf) {
+    return playVowelLike(ctx, start, { duration: conf.duration || 0.32, formants: conf.formants });
+}
+
+function playIpaUnit(ctx, start, symbol) {
+    const conf = IPA_AUDIO_MAP[symbol];
+    if (!conf) return 0;
+    if (conf.kind === 'sequence') {
+        let cursor = start;
+        conf.parts.forEach(part => {
+            cursor += playIpaUnit(ctx, cursor, part) + 0.015;
+        });
+        return cursor - start;
+    }
+    if (conf.kind === 'vowel') return playVowelLike(ctx, start, conf);
+    if (conf.kind === 'glide') return playGlide(ctx, start, conf);
+    if (conf.kind === 'fricative') return playFricative(ctx, start, conf);
+    if (conf.kind === 'plosive') return playPlosive(ctx, start, conf);
+    if (conf.kind === 'sonorant') return playSonorant(ctx, start, conf);
+    return 0;
+}
+
+async function speakIpaSymbol(symbol) {
+    const cue = IPA_TTS_MAP[symbol];
+    if (!cue) {
+        alert(`暂时还没有 ${symbol} 的读音配置。`);
+        return;
+    }
+    stopIpaAudio();
+    speakEnglish(cue, { rate: 0.65, pitch: 1.05 });
+}
+
+function collectEnglishPronItems(q) {
+    const corpus = [q.q, ...(q.options || []), q.explain].filter(Boolean).join(' ');
+    const normalizedCorpus = normalizeEnglishKey(corpus);
+    const items = [];
+    const seen = new Set();
+    Object.keys(EN_PRON_DICT)
+        .sort((a, b) => b.length - a.length)
+        .forEach(key => {
+            if (key.includes(' ') && normalizedCorpus.includes(key) && !seen.has(key)) {
+                seen.add(key);
+                items.push({ text: key, ipa: EN_PRON_DICT[key] });
+            }
+        });
+    const words = normalizedCorpus.match(/[a-z']+/g) || [];
+    words.forEach(word => {
+        if (seen.has(word) || EN_SPEECH_STOP_WORDS.has(word) || !EN_PRON_DICT[word]) return;
+        seen.add(word);
+        items.push({ text: word, ipa: EN_PRON_DICT[word] });
+    });
+    return items.slice(0, 8);
+}
+
+function renderEnglishTools(q) {
+    const items = collectEnglishPronItems(q);
+    if (!items.length) return '';
+    return `<div class="english-tools">${
+        items.map(item => `
+            <div class="word-chip">
+                <strong>${escapeHtml(item.text)}</strong>
+                <span class="ipa">${escapeHtml(item.ipa)}</span>
+                <button class="speak-btn inline" type="button" data-speak="${escapeHtml(item.text)}">发音</button>
+            </div>
+        `).join('')
+    }</div>`;
+}
+
+function renderEnglishOption(opt) {
+    const raw = String(opt).trim();
+    const key = normalizeEnglishKey(raw);
+    const ipa = EN_PRON_DICT[key];
+    const isPureEnglish = /^[A-Za-z][A-Za-z\s'!?,.-]*$/.test(raw);
+    if (!ipa || !isPureEnglish) {
+        return `<span class="option-main">${escapeHtml(raw)}</span>`;
+    }
+    return `
+        <div class="option-content">
+            <div class="option-text-wrap">
+                <span class="option-main">${escapeHtml(raw)}</span>
+                <span class="option-ipa">${escapeHtml(ipa)}</span>
+            </div>
+            <span class="speak-btn inline" data-speak="${escapeHtml(raw)}">发音</span>
+        </div>
+    `;
+}
+
+function bindSpeechButtons(root) {
+    root.querySelectorAll('[data-speak]').forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            speakEnglish(btn.dataset.speak);
+        });
+    });
+}
+
+function renderIpaLibrary() {
+    const s = currentSession;
+    const tabKey = s.ipaTab || 'vowels';
+    const tab = IPA_REFERENCE_TABS[tabKey];
+    const modalBody = document.getElementById('modalBody');
+    const tabsHtml = Object.keys(IPA_REFERENCE_TABS).map(key => {
+        const item = IPA_REFERENCE_TABS[key];
+        return `<button class="ipa-tab-btn ${key === tabKey ? 'active' : ''}" type="button" onclick="switchIpaTab('${key}')">${item.title}</button>`;
+    }).join('');
+    const cardsHtml = tab.items.map(item => `
+        <div class="ipa-card">
+            <div class="ipa-symbol-row">
+                <button class="ipa-symbol ipa-symbol-btn" type="button" data-ipa-symbol="${escapeHtml(item.symbol)}">${escapeHtml(item.symbol)}</button>
+                <span class="speak-btn inline" data-speak="${escapeHtml(item.examples[0])}">听示例</span>
+            </div>
+            <div class="ipa-read">${escapeHtml(item.read)}<br><span style="font-size:12px;color:#98a2b3">点左侧音标听读音，右侧是示例词读音</span></div>
+            <div class="ipa-examples">
+                ${item.examples.map(word => `<span class="ipa-word-chip"><span>${escapeHtml(word)}</span><span class="speak-btn inline" data-speak="${escapeHtml(word)}">发音</span></span>`).join('')}
+            </div>
+        </div>
+    `).join('');
+    modalBody.innerHTML = `
+        <div class="ipa-tabs">${tabsHtml}</div>
+        <div class="ipa-panel">
+            <div class="ipa-panel-title">国际音标总览</div>
+            <div class="ipa-panel-desc">${escapeHtml(tab.desc)}</div>
+            <div class="ipa-grid">${cardsHtml}</div>
+        </div>
+    `;
+    bindSpeechButtons(modalBody);
+    modalBody.querySelectorAll('[data-ipa-symbol]').forEach(btn => {
+        btn.addEventListener('click', (event) => {
+            event.stopPropagation();
+            speakIpaSymbol(btn.dataset.ipaSymbol);
+        });
+    });
+}
+
+function switchIpaTab(tabKey) {
+    if (!currentSession || currentSession.mode !== 'ipa_library') return;
+    currentSession.ipaTab = tabKey;
+    renderIpaLibrary();
+}
+
 /* ==================== 视图渲染 ==================== */
 
 function getTopics(subject, grade) {
     if (subject === 'chinese') return CHINESE_TOPICS[grade] || [];
     if (subject === 'math') return MATH_TOPICS[grade] || [];
-    if (subject === 'english') return ENGLISH_TOPICS[grade] || [];
+    if (subject === 'english') return [...ENGLISH_EXTRA_TOPICS, ...(ENGLISH_TOPICS[grade] || [])];
     return [];
 }
 
@@ -3892,6 +4586,7 @@ function renderHomeHeader() {
         all.push(...MATH_TOPICS[g]);
         all.push(...ENGLISH_TOPICS[g]);
     });
+    all.push(...ENGLISH_EXTRA_TOPICS);
     const total = all.length;
     const done = all.filter(t => appState.completed[t.id] && appState.completed[t.id].score >= 60).length;
     const pct = Math.round(done / total * 100);
@@ -3910,25 +4605,39 @@ function renderAllSubjects() {
 
 let currentSession = null;
 function openStudyModal(subject, topic) {
-    let questions;
-    if (subject === 'chinese') questions = generateChineseQuestions(topic.id, appState.currentGrade);
-    else if (subject === 'math') questions = generateMathQuestions(topic.id, appState.currentGrade);
-    else questions = generateEnglishQuestions(topic.id, appState.currentGrade);
+    const studyModalCard = document.querySelector('#studyModal .modal');
+    const studyFooter = document.querySelector('#studyModal .modal-footer');
+    let questions = [];
+    let mode = 'quiz';
+    if (subject === 'english' && topic.id === 'e_ipa') {
+        mode = 'ipa_library';
+    } else if (subject === 'chinese') {
+        questions = generateChineseQuestions(topic.id, appState.currentGrade);
+    } else if (subject === 'math') {
+        questions = generateMathQuestions(topic.id, appState.currentGrade);
+    } else {
+        questions = generateEnglishQuestions(topic.id, appState.currentGrade);
+    }
 
     currentSession = {
         subject, topic,
+        mode,
         questions: questions,
         currentIndex: 0,
         answers: new Array(questions.length).fill(null), // null / {chosen, correct}
         score: 0,
+        ipaTab: 'vowels',
     };
 
     const headerMap = { chinese: 'chinese', math: 'math', english: 'english' };
     document.getElementById('modalHeader').className = 'modal-header ' + headerMap[subject];
     document.getElementById('modalTitle').textContent = `${topic.icon} ${topic.name}`;
     document.getElementById('studyModal').classList.add('show');
+    studyModalCard.classList.toggle('ipa-modal', mode === 'ipa_library');
+    studyFooter.style.display = mode === 'ipa_library' ? 'none' : '';
 
-    renderQuestion();
+    if (mode === 'ipa_library') renderIpaLibrary();
+    else renderQuestion();
 }
 
 function renderQuestion() {
@@ -3936,6 +4645,7 @@ function renderQuestion() {
     const q = s.questions[s.currentIndex];
     const ans = s.answers[s.currentIndex];
     const modalBody = document.getElementById('modalBody');
+    const isEnglish = s.subject === 'english';
 
     const optionsHtml = q.options.map((opt, i) => {
         let cls = 'option-btn';
@@ -3947,12 +4657,13 @@ function renderQuestion() {
         }
         const letter = ['A','B','C','D'][i];
         return `<button class="${cls}" data-index="${i}" ${disabled}>
-            <strong style="margin-right:8px">${letter}.</strong>${opt}
+            <strong style="margin-right:8px">${letter}.</strong>${isEnglish ? renderEnglishOption(opt) : escapeHtml(opt)}
         </button>`;
     }).join('');
 
     const explainHtml = ans ? `<div class="explanation show">💡 <strong>解析：</strong>${q.explain}</div>`
                             : `<div class="explanation"></div>`;
+    const englishToolsHtml = isEnglish ? renderEnglishTools(q) : '';
 
     modalBody.innerHTML = `
         <div class="question-area">
@@ -3960,7 +4671,8 @@ function renderQuestion() {
                 <span>📌 第 ${s.currentIndex + 1} 题 / 共 ${s.questions.length} 题</span>
                 <span>📚 ${s.subject === 'chinese' ? '语文' : s.subject === 'math' ? '数学' : '英语'}</span>
             </div>
-            <div class="question-text">${q.q}</div>
+            <div class="question-text">${escapeHtml(q.q)}</div>
+            ${englishToolsHtml}
             <div class="options-grid">${optionsHtml}</div>
             ${explainHtml}
         </div>
@@ -3970,6 +4682,7 @@ function renderQuestion() {
     modalBody.querySelectorAll('.option-btn').forEach(btn => {
         btn.addEventListener('click', () => onAnswer(parseInt(btn.dataset.index)));
     });
+    if (isEnglish) bindSpeechButtons(modalBody);
 
     // 导航
     document.getElementById('questionIndicator').textContent = `${s.currentIndex + 1} / ${s.questions.length}`;
@@ -4001,7 +4714,11 @@ function onAnswer(chosen) {
 }
 
 function closeStudyModal() {
+    const studyModalCard = document.querySelector('#studyModal .modal');
+    const studyFooter = document.querySelector('#studyModal .modal-footer');
     document.getElementById('studyModal').classList.remove('show');
+    studyModalCard.classList.remove('ipa-modal');
+    studyFooter.style.display = '';
     currentSession = null;
 }
 
@@ -4077,6 +4794,7 @@ const GAME_LIST = [
     { id: 'memory_en',   name: '单词记忆翻翻乐',    icon: '🔤', desc: '翻开卡片找中英单词配对', cat: 'english' },
     { id: 'whack_en',    name: '英语打地鼠',        icon: '🐹', desc: '根据提示选对地鼠上的英语单词', cat: 'english' },
     { id: 'typing',      name: '打字练习小能手',    icon: '⌨️', desc: '练习字母、单词打字速度', cat: 'english' },
+    { id: 'ipa_listen',  name: '发音选音标',        icon: '🗣️', desc: '听单词发音，选出正确的国际音标', cat: 'english' },
     { id: 'wheel',       name: '知识幸运大转盘',    icon: '🎡', desc: '随机抽取语数英综合问题作答', cat: 'mixed' },
 ];
 
@@ -4096,7 +4814,7 @@ function renderGamePanel() {
         `;
     });
     panel.innerHTML = `
-        <h2 class="section-title" style="color:#9b59b6">🎮 游戏学习大厅 · 共12款趣味游戏</h2>
+        <h2 class="section-title" style="color:#9b59b6">🎮 游戏学习大厅 · 共${GAME_LIST.length}款趣味游戏</h2>
         <div class="game-area">
             <div class="game-hall-grid">${cardsHtml}</div>
             <div id="gameContainer" style="display:none">
@@ -4135,7 +4853,7 @@ function launchGame(id) {
         whack_cn:'地鼠识字大作战', whack_math:'数学打地鼠', whack_en:'英语打地鼠',
         chengyu_jielong:'成语接龙大师',
         race:'60秒口算挑战', bomb:'数字炸弹猜数', match_math:'算式连连看',
-        typing:'打字练习小能手', wheel:'知识幸运大转盘'
+        typing:'打字练习小能手', ipa_listen:'发音选音标', wheel:'知识幸运大转盘'
     };
     openGameModal(nameMap[id] || '游戏');
     _pendingGameId = id;
@@ -4151,6 +4869,7 @@ function launchGame(id) {
         bomb: startNumberBomb,
         match_math: () => startMatchGame('math'),
         typing: startTyping,
+        ipa_listen: startIpaListenGame,
         wheel: startWheelGame,
     };
     if (map[id]) map[id]();
@@ -4904,7 +5623,147 @@ function finishTyping() {
     ], stars);
 }
 
-/* ========= 7. 成语接龙（20组·覆盖寓言/历史/品德/自然等课标主题） ========= */
+/* ========= 7. 国际音标听力辨识 ========= */
+const IPA_GAME_BANK = [
+    { text:'apple', ipa:'/ˈaepəl/', hint:'水果' },
+    { text:'banana', ipa:'/bəˈnænə/', hint:'水果' },
+    { text:'book', ipa:'/bʊk/', hint:'学习用品' },
+    { text:'pencil', ipa:'/ˈpens(ə)l/', hint:'学习用品' },
+    { text:'school', ipa:'/skuːl/', hint:'校园' },
+    { text:'teacher', ipa:'/ˈtiːtʃər/', hint:'人物' },
+    { text:'student', ipa:'/ˈstuːd(ə)nt/', hint:'人物' },
+    { text:'water', ipa:'/ˈwɔːtər/', hint:'饮品' },
+    { text:'happy', ipa:'/ˈhaepi/', hint:'情绪' },
+    { text:'hello', ipa:'/həˈloʊ/', hint:'问候语' },
+    { text:'goodbye', ipa:'/ˌɡʊdˈbaɪ/', hint:'问候语' },
+    { text:'please', ipa:'/pliːz/', hint:'礼貌用语' },
+    { text:'sorry', ipa:'/ˈsɑːri/', hint:'礼貌用语' },
+    { text:'mother', ipa:'/ˈmʌðər/', hint:'家庭成员' },
+    { text:'father', ipa:'/ˈfɑːðər/', hint:'家庭成员' },
+    { text:'brother', ipa:'/ˈbrʌðər/', hint:'家庭成员' },
+    { text:'sister', ipa:'/ˈsɪstər/', hint:'家庭成员' },
+    { text:'friend', ipa:'/frend/', hint:'人物' },
+    { text:'morning', ipa:'/ˈmɔːrnɪŋ/', hint:'时间' },
+    { text:'evening', ipa:'/ˈiːvnɪŋ/', hint:'时间' },
+    { text:'yellow', ipa:'/ˈjeloʊ/', hint:'颜色' },
+    { text:'purple', ipa:'/ˈpɜːrp(ə)l/', hint:'颜色' },
+    { text:'winter', ipa:'/ˈwɪntər/', hint:'季节' },
+    { text:'summer', ipa:'/ˈsʌmər/', hint:'季节' },
+    { text:'doctor', ipa:'/ˈdɑːktər/', hint:'职业' },
+    { text:'driver', ipa:'/ˈdraɪvər/', hint:'职业' },
+    { text:'plane', ipa:'/pleɪn/', hint:'交通工具' },
+    { text:'bike', ipa:'/baɪk/', hint:'交通工具' },
+];
+function buildIpaQuestionPool() {
+    const bank = shuffle([...IPA_GAME_BANK]).slice(0, 8);
+    return bank.map(item => {
+        const distractors = new Set();
+        let guard = 0;
+        while (distractors.size < 3 && guard++ < 300) {
+            const other = IPA_GAME_BANK[rand(0, IPA_GAME_BANK.length - 1)].ipa;
+            if (other !== item.ipa) distractors.add(other);
+        }
+        const options = shuffle([item.ipa, ...distractors]);
+        return {
+            text: item.text,
+            ipa: item.ipa,
+            hint: item.hint,
+            options,
+            correct: options.indexOf(item.ipa)
+        };
+    });
+}
+function startIpaListenGame() {
+    gameState = {
+        type:'ipa_listen',
+        list: buildIpaQuestionPool(),
+        i: 0,
+        correctCount: 0,
+        wrongCount: 0,
+        picked: null,
+        autoPlayed: false
+    };
+    renderIpaListenGame();
+}
+function renderIpaListenGame() {
+    const container = document.getElementById('gameModalBody');
+    const q = gameState.list[gameState.i];
+    const optionsHtml = q.options.map((ipa, idx) => {
+        let cls = 'btn-primary';
+        if (gameState.picked != null) {
+            if (idx === q.correct) cls = 'btn-success';
+            else if (idx === gameState.picked) cls = 'btn-danger';
+        }
+        return `<button class="btn ${cls}" ${gameState.picked!=null?'disabled':''}
+            onclick="ipaListenPick(${idx})" style="font-size:20px;padding:14px 18px">${escapeHtml(ipa)}</button>`;
+    }).join('');
+    container.innerHTML = `
+        <div style="max-width:680px;margin:0 auto;text-align:center">
+            <div class="game-title">🗣️ 发音选音标</div>
+            <div style="display:flex;justify-content:center;gap:22px;margin-bottom:14px;font-size:15px;flex-wrap:wrap">
+                <span>第 <b>${gameState.i + 1}</b> / <b>${gameState.list.length}</b> 题</span>
+                <span style="color:#27ae60">✅ <b>${gameState.correctCount}</b></span>
+                <span style="color:#e74c3c">❌ <b>${gameState.wrongCount}</b></span>
+            </div>
+            <div style="background:linear-gradient(135deg,#e8f5ff,#eef9f1);padding:22px;border-radius:18px;margin-bottom:18px">
+                <div style="font-size:17px;font-weight:bold;color:#1f2d3d">听发音，选出正确国际音标</div>
+                <div style="margin-top:8px;font-size:14px;color:#667085">提示分类：${escapeHtml(q.hint)}</div>
+                <div style="margin-top:16px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap">
+                    <button class="btn btn-success" onclick="speakEnglish('${escapeHtml(q.text)}')" style="font-size:18px;padding:12px 22px">🔊 播放发音</button>
+                    <button class="btn btn-warning" onclick="speakEnglish('${escapeHtml(q.text)}')" style="font-size:18px;padding:12px 22px">🔁 再听一遍</button>
+                </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+                ${optionsHtml}
+            </div>
+            ${gameState.picked != null ? `
+                <div style="margin-top:18px;padding:16px 18px;border-radius:14px;text-align:left;background:${gameState.picked===q.correct?'#d4edda':'#f8d7da'};color:${gameState.picked===q.correct?'#155724':'#721c24'};line-height:1.8">
+                    <b>${gameState.picked===q.correct?'✅ 选对了！':'❌ 这题选错了'}</b><br>
+                    单词：<b>${escapeHtml(q.text)}</b><br>
+                    正确音标：<b>${escapeHtml(q.ipa)}</b>
+                </div>
+                <div style="margin-top:18px">
+                    <button class="btn btn-primary" onclick="ipaListenNext()" style="font-size:16px;padding:12px 24px">
+                        ${gameState.i===gameState.list.length-1?'🏆 查看结果':'➡ 下一题'}
+                    </button>
+                </div>
+            ` : ''}
+            <div style="margin-top:22px">
+                <button class="btn btn-info" onclick="closeGameModal()">🏠 返回大厅</button>
+            </div>
+        </div>
+    `;
+    if (!gameState.autoPlayed) {
+        gameState.autoPlayed = true;
+        setTimeout(() => speakEnglish(q.text), 250);
+    }
+}
+function ipaListenPick(i) {
+    if (gameState.picked != null) return;
+    gameState.picked = i;
+    const q = gameState.list[gameState.i];
+    if (i === q.correct) gameState.correctCount++;
+    else gameState.wrongCount++;
+    renderIpaListenGame();
+}
+function ipaListenNext() {
+    gameState.picked = null;
+    if (gameState.i >= gameState.list.length - 1) {
+        const stars = calcStars(gameState.correctCount, gameState.list.length, gameState.correctCount===gameState.list.length);
+        finishGameResult('🗣️ 发音选音标结束！', stars>=3 ? '🏆' : '🎉', [
+            `✅ 答对：<b style="color:#27ae60">${gameState.correctCount}</b> 题`,
+            `❌ 答错：<b style="color:#e74c3c">${gameState.wrongCount}</b> 题`,
+            `📝 共练习：<b>${gameState.list.length}</b> 个单词`,
+            `🎯 正确率：<b>${Math.round(gameState.correctCount / gameState.list.length * 100)}%</b>`,
+        ], stars);
+        return;
+    }
+    gameState.i++;
+    gameState.autoPlayed = false;
+    renderIpaListenGame();
+}
+
+/* ========= 8. 成语接龙（20组·覆盖寓言/历史/品德/自然等课标主题） ========= */
 const CHENGYU_JIELONG = [
     { first:'一心一意', chain:['意气风发','发扬光大','大材小用','用心良苦','苦尽甘来'] },
     { first:'一帆风顺', chain:['顺水人情','情同手足','足智多谋','谋事在人','人山人海'] },
@@ -5020,7 +5879,7 @@ function jielongNext() {
     renderJielong();
 }
 
-/* ========= 8. 知识幸运大转盘（216道·语文54/数学54/英语54/综合54） ========= */
+/* ========= 9. 知识幸运大转盘（216道·语文54/数学54/英语54/综合54） ========= */
 const WHEEL_QUESTIONS = [
 /* ---------- 语文 54题 ---------- */
 {cat:'语文', q:'「一」字有几画？', opts:['1画','2画','3画','4画'], ans:0},
