@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英语零基础入门网站</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #eef6ff 0%, #f9f4ff 50%, #fff9f2 100%);
+    color: #1f2d3d;
+}
+.page {
+    max-width: 1460px;
+    margin: 0 auto;
+    padding: 22px;
+}
+.hero, .panel, .sidebar, .lesson-main {
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #e6eef7;
+    box-shadow: 0 14px 34px rgba(31,45,61,0.08);
+}
+.hero {
+    border-radius: 26px;
+    padding: 28px;
+    margin-bottom: 18px;
+}
+.hero h1 {
+    font-size: 36px;
+    color: #0f6cbd;
+    margin-bottom: 10px;
+}
+.hero p {
+    line-height: 1.8;
+    color: #526071;
+    font-size: 15px;
+}
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 16px;
+    margin-top: 18px;
+}
+.panel {
+    border-radius: 20px;
+    padding: 18px;
+}
+.panel h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #1f2d3d;
+}
+.route {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+}
+.route-step {
+    padding: 12px;
+    border-radius: 14px;
+    background: #f4f9ff;
+    border: 1px solid #d7e7fb;
+}
+.route-step strong {
+    display: block;
+    color: #0f6cbd;
+    margin-bottom: 6px;
+}
+.tips {
+    display: grid;
+    gap: 10px;
+}
+.tip-line {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f9fbff;
+    color: #526071;
+    font-size: 14px;
+}
+.progress-bar {
+    height: 12px;
+    border-radius: 999px;
+    background: #edf3fb;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #0f6cbd, #3aa7ff);
+}
+.layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 18px;
+}
+.sidebar {
+    border-radius: 24px;
+    padding: 18px;
+    position: sticky;
+    top: 16px;
+    align-self: start;
+}
+.sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+.sidebar p {
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+.lesson-list {
+    display: grid;
+    gap: 12px;
+}
+.lesson-btn {
+    width: 100%;
+    text-align: left;
+    border: 1px solid #d9e7f5;
+    background: #fbfdff;
+    border-radius: 16px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+.lesson-btn:hover {
+    border-color: #0f6cbd;
+    transform: translateY(-1px);
+}
+.lesson-btn.active {
+    background: linear-gradient(135deg, #eef6ff, #f6fbff);
+    border-color: #0f6cbd;
+}
+.lesson-btn.done {
+    box-shadow: inset 0 0 0 2px rgba(39,174,96,0.15);
+}
+.lesson-level {
+    font-size: 12px;
+    color: #0f6cbd;
+    font-weight: bold;
+}
+.lesson-name {
+    margin-top: 6px;
+    font-size: 16px;
+    color: #1f2d3d;
+    font-weight: bold;
+}
+.lesson-meta {
+    margin-top: 8px;
+    color: #667085;
+    font-size: 12px;
+    line-height: 1.6;
+}
+.lesson-main {
+    border-radius: 24px;
+    padding: 22px;
+}
+.lesson-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+.lesson-header h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+.lesson-sub {
+    color: #667085;
+    line-height: 1.8;
+    max-width: 840px;
+}
+.toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.btn {
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+.btn-primary {
+    background: #0f6cbd;
+    color: #fff;
+}
+.btn-light {
+    background: #eef5ff;
+    color: #0f6cbd;
+}
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.summary-card {
+    border-radius: 16px;
+    padding: 14px;
+    background: linear-gradient(135deg, #f6fbff, #fffaf1);
+    border: 1px solid #e0ebf7;
+}
+.summary-card .label {
+    font-size: 12px;
+    color: #667085;
+    margin-bottom: 6px;
+}
+.summary-card .value {
+    font-size: 19px;
+    color: #1f2d3d;
+    font-weight: bold;
+    line-height: 1.5;
+}
+.section {
+    margin-top: 22px;
+}
+.section h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+.section p.head-note {
+    font-size: 14px;
+    color: #667085;
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+.sentence-list {
+    display: grid;
+    gap: 12px;
+}
+.sentence-card {
+    border: 1px solid #dbe7f4;
+    border-radius: 18px;
+    padding: 16px;
+    background: #fbfdff;
+}
+.sentence-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+}
+.sentence-en {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.6;
+    color: #1f2d3d;
+}
+.sentence-ipa {
+    margin-top: 8px;
+    font-family: "Times New Roman", serif;
+    color: #0f6cbd;
+    font-size: 18px;
+}
+.sentence-zh {
+    margin-top: 8px;
+    color: #526071;
+    line-height: 1.7;
+}
+.mini-tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #fff7e8;
+    border: 1px solid #ffe1a8;
+    color: #9a6200;
+    font-size: 12px;
+}
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+.vocab-card {
+    border-radius: 16px;
+    padding: 14px;
+    background: #f9fbff;
+    border: 1px solid #dbe7f4;
+}
+.vocab-word {
+    font-size: 20px;
+    font-weight: bold;
+}
+.vocab-ipa {
+    margin-top: 6px;
+    color: #0f6cbd;
+    font-family: "Times New Roman", serif;
+}
+.vocab-zh {
+    margin-top: 6px;
+    color: #526071;
+}
+.vocab-tip {
+    margin-top: 8px;
+    font-size: 12px;
+    color: #8a5a00;
+    background: #fff7e8;
+    border: 1px solid #ffe1a8;
+    border-radius: 12px;
+    padding: 8px 10px;
+    line-height: 1.6;
+}
+.practice-list {
+    display: grid;
+    gap: 14px;
+}
+.question-card {
+    border-radius: 16px;
+    padding: 16px;
+    border: 1px solid #dbe7f4;
+    background: #fbfdff;
+}
+.question-title {
+    font-weight: bold;
+    line-height: 1.7;
+}
+.option-list {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+}
+.option-item {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border: 1px solid #e2eaf5;
+    border-radius: 12px;
+    background: #fff;
+}
+.question-result {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #667085;
+    line-height: 1.7;
+}
+.check-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+    align-items: center;
+}
+.score-box {
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #eefbf4;
+    border: 1px solid #caefd8;
+    color: #1d7a46;
+    font-weight: bold;
+}
+.foot-note {
+    margin-top: 20px;
+    padding: 14px 16px;
+    border-radius: 16px;
+    background: #fff8ec;
+    border: 1px solid #ffe1ab;
+    color: #8a5a00;
+    line-height: 1.8;
+}
+.stage-box {
+    border-radius: 18px;
+    padding: 16px;
+    border: 1px solid #dbe7f4;
+    background: linear-gradient(180deg, #fffdf7, #f8fbff);
+}
+.stage-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.stage-head h4 {
+    font-size: 20px;
+}
+.stage-tag {
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: #fff1c6;
+    color: #8a5a00;
+    font-size: 12px;
+    font-weight: bold;
+}
+@media (max-width: 980px) {
+    .hero-grid, .layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+    <section class="hero">
+        <h1>小学、初中、高中英语进阶网站</h1>
+        <p>这是一套面向零基础到进阶学习者的离线英语站点，发音体系采用英式音标。课程按小学、初中、高中逐级展开，每一课都提供短文、逐句国际音标、中文翻译、重点词汇和练习，目标是让你从基础词句一路走到能读懂英文读物与常见应用文本。</p>
+        <div class="hero-grid">
+            <div class="panel">
+                <h3>逐级升级路线</h3>
+                <div class="route">
+                    <div class="route-step"><strong>小学</strong>从问候、家庭、校园到生活短文，打牢基础词句。</div>
+                    <div class="route-step"><strong>小学进阶</strong>学会看天气、购物、作息和生活场景。</div>
+                    <div class="route-step"><strong>小学阅读</strong>开始读完整小短文，训练上下文理解。</div>
+                    <div class="route-step"><strong>初中</strong>进入校园社团、城市出行、科学观察等段落阅读。</div>
+                    <div class="route-step"><strong>高中</strong>进入观点表达、责任主题、应用文本和较长句子。</div>
+                    <div class="route-step"><strong>目标</strong>从易到难，逐步做到看懂英文读物和常见英语应用。</div>
+                </div>
+            </div>
+            <div class="panel">
+                <h3>建议学习法</h3>
+                <div class="tips">
+                    <div class="tip-line">1. 先看中文理解场景，再听英文，最后看音标。</div>
+                    <div class="tip-line">2. 每句至少跟读 3 遍：慢读 1 遍，正常读 2 遍。</div>
+                    <div class="tip-line">3. 重点先记高频词，不追求一次背很多。</div>
+                    <div class="tip-line">4. 每学完一课，先做练习，再进入下一课。</div>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" id="heroProgress"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="layout">
+        <aside class="sidebar">
+            <h2>学习目录</h2>
+            <p>建议从上往下学，但不强制锁定。你可以按自己的节奏反复回看。</p>
+            <div class="lesson-list" id="lessonList"></div>
+        </aside>
+
+        <main class="lesson-main">
+            <div class="lesson-header">
+                <div>
+                    <h2 id="lessonTitle"></h2>
+                    <div class="lesson-sub" id="lessonSub"></div>
+                </div>
+                <div class="toolbar">
+                    <button class="btn btn-light" type="button" id="prevBtn">上一课</button>
+                    <button class="btn btn-light" type="button" id="nextBtn">下一课</button>
+                    <button class="btn btn-primary" type="button" id="doneBtn">标记本课完成</button>
+                </div>
+            </div>
+
+            <div class="summary-grid" id="summaryGrid"></div>
+
+            <section class="section">
+                <h3>短文精读</h3>
+                <p class="head-note">每一句都给你准备了英文原句、英式音标和中文翻译。建议先看句意，再听句子，最后看音标。</p>
+                <div class="sentence-list" id="sentenceList"></div>
+            </section>
+
+            <section class="section">
+                <h3>重点词汇</h3>
+                <p class="head-note">重点词只挑最值得先记住的高频词，方便你逐步建立阅读词汇量。</p>
+                <div class="vocab-grid" id="vocabGrid"></div>
+            </section>
+
+            <section class="section">
+                <h3>学习练习</h3>
+                <p class="head-note">做题时尽量先自己判断，再看答案解释。目标不是一次全对，而是把句子看懂。</p>
+                <div class="practice-list" id="practiceList"></div>
+                <div class="check-row">
+                    <button class="btn btn-primary" type="button" id="checkBtn">检查答案</button>
+                    <button class="btn btn-light" type="button" id="resetBtn">重做本课练习</button>
+                    <div class="score-box" id="scoreBox">本课练习未提交</div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h3>阶段测试</h3>
+                <p class="head-note">每学完一段内容，就做一次阶段测试。它会覆盖当前阶段前面几课的核心词句，帮助你把零散知识串起来。</p>
+                <div class="stage-box">
+                    <div class="stage-head">
+                        <div>
+                            <h4 id="stageTitle"></h4>
+                            <div class="lesson-sub" id="stageDesc"></div>
+                        </div>
+                        <div class="stage-tag" id="stageTag"></div>
+                    </div>
+                    <div class="practice-list" id="stagePracticeList"></div>
+                    <div class="check-row">
+                        <button class="btn btn-primary" type="button" id="checkStageBtn">检查阶段测试</button>
+                        <button class="btn btn-light" type="button" id="resetStageBtn">重做阶段测试</button>
+                        <div class="score-box" id="stageScoreBox">阶段测试未提交</div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="foot-note" id="upgradeTip"></div>
+        </main>
+    </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'english_starter_site_v1';
+const lessons = [
+    {
+        id: 'l1',
+        level: 'Level 1',
+        title: '打招呼与自我介绍',
+        theme: '认识最基础的开口句子',
+        goal: '学会看懂名字、年龄、来自哪里和喜欢什么。',
+        upgrade: '完成这一课后，你能读懂最基础的见面问候和自我介绍。',
+        text: [
+            { en: 'Hello! My name is Amy.', ipa: '/həˈləʊ | maɪ neɪm ɪz ˈeɪmi/', zh: '你好！我的名字叫艾米。', tip: 'name is = 叫作、名叫' },
+            { en: 'I am from London.', ipa: '/aɪ æm frəm ˈlʌndən/', zh: '我来自伦敦。', tip: 'from = 来自' },
+            { en: 'I am twelve years old.', ipa: '/aɪ æm twelv jɪəz əʊld/', zh: '我十二岁。', tip: 'years old = 岁' },
+            { en: 'I like books and music.', ipa: '/aɪ laɪk bʊks ənd ˈmjuːzɪk/', zh: '我喜欢书和音乐。', tip: 'like = 喜欢' },
+            { en: 'Nice to meet you.', ipa: '/naɪs tə miːt juː/', zh: '很高兴见到你。', tip: '见面常用礼貌表达' }
+        ],
+        vocab: [
+            { word: 'hello', ipa: '/həˈləʊ/', zh: '你好', tip: '最常见问候语' },
+            { word: 'name', ipa: '/neɪm/', zh: '名字', tip: '可放在 My name is... 里' },
+            { word: 'from', ipa: '/frəm/', zh: '来自', tip: '表示来源地' },
+            { word: 'years old', ipa: '/jɪəz əʊld/', zh: '几岁', tip: '表达年龄时一起记' },
+            { word: 'like', ipa: '/laɪk/', zh: '喜欢', tip: 'like + 名词' },
+            { word: 'meet', ipa: '/miːt/', zh: '见到', tip: 'Nice to meet you.' }
+        ],
+        practice: [
+            { q: '“My name is Amy.” 的意思是？', options: ['我喜欢艾米', '我的名字叫艾米', '艾米来自伦敦'], answer: 1, explain: 'My name is ... 表示“我的名字叫……”。' },
+            { q: '哪一个单词表示“来自”？', options: ['from', 'old', 'music'], answer: 0, explain: 'from 表示“来自”。' },
+            { q: '“I like books and music.” 里，like 的意思是？', options: ['看到', '拥有', '喜欢'], answer: 2, explain: 'like 在这里是“喜欢”。' },
+            { q: '“Nice to meet you.” 适合用在什么场景？', options: ['第一次见面', '写作业', '问路'], answer: 0, explain: '第一次见面时很常用。' }
+        ]
+    },
+    {
+        id: 'l2',
+        level: 'Level 2',
+        title: '家庭与家',
+        theme: '读懂最常见的家庭和家居描述',
+        goal: '认识 family、father、mother、home 这类高频词。',
+        upgrade: '完成这一课后，你可以读懂介绍家庭成员和家中生活的小段落。',
+        text: [
+            { en: 'This is my family.', ipa: '/ðɪs ɪz maɪ ˈfæməli/', zh: '这是我的家人。', tip: 'This is... = 这是……' },
+            { en: 'My father is a doctor.', ipa: '/maɪ ˈfɑːðə(r) ɪz ə ˈdɒktə(r)/', zh: '我爸爸是一名医生。', tip: '职业句型：A is a ...' },
+            { en: 'My mother works at home.', ipa: '/maɪ ˈmʌðə(r) wɜːks æt həʊm/', zh: '我妈妈在家工作。', tip: 'work at home = 在家工作' },
+            { en: 'I have one brother and one cat.', ipa: '/aɪ hæv wʌn ˈbrʌðə(r) ənd wʌn kæt/', zh: '我有一个哥哥和一只猫。', tip: 'have = 有' },
+            { en: 'We eat dinner together every evening.', ipa: '/wiː iːt ˈdɪnə(r) təˈɡeðə(r) ˈevri ˈiːvnɪŋ/', zh: '我们每天晚上一起吃晚饭。', tip: 'together = 一起' }
+        ],
+        vocab: [
+            { word: 'family', ipa: '/ˈfæməli/', zh: '家人；家庭', tip: '非常高频的生活词' },
+            { word: 'father', ipa: '/ˈfɑːðə(r)/', zh: '爸爸', tip: '也可用 dad' },
+            { word: 'mother', ipa: '/ˈmʌðə(r)/', zh: '妈妈', tip: '也可用 mum' },
+            { word: 'home', ipa: '/həʊm/', zh: '家', tip: 'go home = 回家' },
+            { word: 'brother', ipa: '/ˈbrʌðə(r)/', zh: '兄弟', tip: '注意 th 发音' },
+            { word: 'together', ipa: '/təˈɡeðə(r)/', zh: '一起', tip: '读短文时很常见' }
+        ],
+        practice: [
+            { q: '“My father is a doctor.” 的意思是？', options: ['我爸爸是一名医生', '我爸爸在学校', '我爸爸喜欢读书'], answer: 0, explain: 'doctor 是“医生”。' },
+            { q: '哪一个单词表示“家”？', options: ['cat', 'home', 'evening'], answer: 1, explain: 'home 表示家。' },
+            { q: '“I have one brother...” 中 have 表示什么？', options: ['有', '看见', '喜欢'], answer: 0, explain: 'have 在这里是“有”。' },
+            { q: '“together” 的意思最接近？', options: ['慢慢地', '一起', '立刻'], answer: 1, explain: 'together = 一起。' }
+        ]
+    },
+    {
+        id: 'l3',
+        level: 'Level 3',
+        title: '早晨与上学',
+        theme: '理解一天开始时最常见的动作',
+        goal: '掌握起床、洗漱、早餐和上学相关句子。',
+        upgrade: '完成这一课后，你能读懂孩子日常作息的基本描述。',
+        text: [
+            { en: 'I get up at seven o’clock.', ipa: '/aɪ ɡet ʌp æt ˈsevn əˈklɒk/', zh: '我七点起床。', tip: 'get up = 起床' },
+            { en: 'I wash my face and brush my teeth.', ipa: '/aɪ wɒʃ maɪ feɪs ənd brʌʃ maɪ tiːθ/', zh: '我洗脸并刷牙。', tip: 'brush my teeth = 刷牙' },
+            { en: 'I eat bread, eggs, and milk for breakfast.', ipa: '/aɪ iːt bred eɡz ənd mɪlk fə(r) ˈbrekfəst/', zh: '我早餐吃面包、鸡蛋，喝牛奶。', tip: 'for breakfast = 作为早餐' },
+            { en: 'Then I go to school by bus.', ipa: '/ðen aɪ ɡəʊ tə skuːl baɪ bʌs/', zh: '然后我坐公交车去学校。', tip: 'by bus = 坐公交' },
+            { en: 'My first class starts at eight.', ipa: '/maɪ fɜːst klɑːs stɑːts æt eɪt/', zh: '我的第一节课八点开始。', tip: 'start at = 在几点开始' }
+        ],
+        vocab: [
+            { word: 'get up', ipa: '/ɡet ʌp/', zh: '起床', tip: '每天都会用到的动作词组' },
+            { word: 'wash', ipa: '/wɒʃ/', zh: '洗', tip: 'wash face / wash hands' },
+            { word: 'brush', ipa: '/brʌʃ/', zh: '刷', tip: 'brush teeth 高频搭配' },
+            { word: 'breakfast', ipa: '/ˈbrekfəst/', zh: '早餐', tip: '三餐之一' },
+            { word: 'school', ipa: '/skuːl/', zh: '学校', tip: 'go to school' },
+            { word: 'class', ipa: '/klɑːs/', zh: '课；课堂', tip: 'first class = 第一节课' }
+        ],
+        practice: [
+            { q: '“I get up at seven o’clock.” 的意思是？', options: ['我七点回家', '我七点起床', '我七点吃饭'], answer: 1, explain: 'get up = 起床。' },
+            { q: '“brush my teeth” 是什么？', options: ['洗脸', '刷牙', '穿衣服'], answer: 1, explain: 'teeth 是牙齿。' },
+            { q: '“by bus” 的意思是？', options: ['步行', '骑车', '坐公交'], answer: 2, explain: 'by bus = 坐公交。' },
+            { q: '哪一个单词表示“早餐”？', options: ['breakfast', 'school', 'class'], answer: 0, explain: 'breakfast 表示早餐。' }
+        ]
+    },
+    {
+        id: 'l4',
+        level: 'Level 4',
+        title: '学校生活',
+        theme: '学会看懂课堂和学习活动',
+        goal: '进入“会读小段落”的阶段，积累课堂常用表达。',
+        upgrade: '完成这一课后，你能看懂关于课堂、老师和作业的短文。',
+        text: [
+            { en: 'Our classroom is bright and clean.', ipa: '/aʊə(r) ˈklɑːsruːm ɪz braɪt ənd kliːn/', zh: '我们的教室明亮又干净。', tip: 'bright and clean = 明亮干净' },
+            { en: 'My English teacher is kind.', ipa: '/maɪ ˈɪŋɡlɪʃ ˈtiːtʃə(r) ɪz kaɪnd/', zh: '我的英语老师很和善。', tip: 'kind = 和善、亲切' },
+            { en: 'We read short stories in class.', ipa: '/wiː riːd ʃɔːt ˈstɔːriz ɪn klɑːs/', zh: '我们在课堂上读短故事。', tip: 'read stories = 读故事' },
+            { en: 'I ask questions and write new words.', ipa: '/aɪ ɑːsk ˈkwestʃənz ənd raɪt njuː wɜːdz/', zh: '我提问题并写下新单词。', tip: 'ask questions = 提问' },
+            { en: 'After school, I do my homework.', ipa: '/ˈɑːftə(r) skuːl aɪ duː maɪ ˈhəʊmwɜːk/', zh: '放学后，我做家庭作业。', tip: 'do homework = 做作业' }
+        ],
+        vocab: [
+            { word: 'classroom', ipa: '/ˈklɑːsruːm/', zh: '教室', tip: 'room 类词汇很常见' },
+            { word: 'teacher', ipa: '/ˈtiːtʃə(r)/', zh: '老师', tip: '英语入门高频职业词' },
+            { word: 'story', ipa: '/ˈstɔːri/', zh: '故事', tip: 'read stories = 读故事' },
+            { word: 'question', ipa: '/ˈkwestʃən/', zh: '问题', tip: 'ask a question = 提一个问题' },
+            { word: 'write', ipa: '/raɪt/', zh: '写', tip: '注意 w 不发音' },
+            { word: 'homework', ipa: '/ˈhəʊmwɜːk/', zh: '家庭作业', tip: '学生阅读高频词' }
+        ],
+        practice: [
+            { q: '“Our classroom is bright and clean.” 的意思是？', options: ['我们的教室明亮又干净', '我们的教室很大', '我们的教室在二楼'], answer: 0, explain: 'bright and clean = 明亮干净。' },
+            { q: '“ask questions” 的意思是？', options: ['写单词', '提问题', '读故事'], answer: 1, explain: 'ask questions = 提问题。' },
+            { q: '哪一个词表示“家庭作业”？', options: ['story', 'classroom', 'homework'], answer: 2, explain: 'homework = 家庭作业。' },
+            { q: '“teacher” 的中文是？', options: ['老师', '学生', '校长'], answer: 0, explain: 'teacher 就是老师。' }
+        ]
+    },
+    {
+        id: 'l5',
+        level: 'Level 5',
+        title: '购物与日常出行',
+        theme: '进入常见生活对话场景',
+        goal: '读懂价格、物品、礼貌表达和简单问句。',
+        upgrade: '完成这一课后，你能看懂简单购物对话和出门办事场景。',
+        text: [
+            { en: 'I go to the shop with my mum.', ipa: '/aɪ ɡəʊ tə ðə ʃɒp wɪð maɪ mʌm/', zh: '我和妈妈去商店。', tip: 'go to the shop = 去商店' },
+            { en: 'We need apples, rice, and juice.', ipa: '/wiː niːd ˈæplz raɪs ənd dʒuːs/', zh: '我们需要苹果、米和果汁。', tip: 'need = 需要' },
+            { en: 'How much is this bag?', ipa: '/haʊ mʌtʃ ɪz ðɪs bæɡ/', zh: '这个包多少钱？', tip: 'How much is ...? = ……多少钱？' },
+            { en: 'It is three pounds.', ipa: '/ɪt ɪz θriː paʊndz/', zh: '它三英镑。', tip: 'pound = 英镑' },
+            { en: 'Thank you. Have a nice day.', ipa: '/θæŋk juː | hæv ə naɪs deɪ/', zh: '谢谢你。祝你今天愉快。', tip: '常见礼貌结束语' }
+        ],
+        vocab: [
+            { word: 'shop', ipa: '/ʃɒp/', zh: '商店', tip: 'go to the shop 很常见' },
+            { word: 'need', ipa: '/niːd/', zh: '需要', tip: 'I need ... = 我需要……' },
+            { word: 'apple', ipa: '/ˈæpəl/', zh: '苹果', tip: '生活高频水果词' },
+            { word: 'juice', ipa: '/dʒuːs/', zh: '果汁', tip: '常搭配 orange juice' },
+            { word: 'pound', ipa: '/paʊnd/', zh: '英镑', tip: '英国货币单位' },
+            { word: 'nice day', ipa: '/naɪs deɪ/', zh: '愉快的一天', tip: 'Have a nice day.' }
+        ],
+        practice: [
+            { q: '“How much is this bag?” 是在问什么？', options: ['这个包在哪儿', '这个包多少钱', '这个包是谁的'], answer: 1, explain: 'How much is ...? 就是问价格。' },
+            { q: '“We need apples...” 里的 need 是？', options: ['需要', '购买', '看见'], answer: 0, explain: 'need = 需要。' },
+            { q: '“three pounds” 指的是？', options: ['三本书', '三公斤', '三英镑'], answer: 2, explain: 'pounds 是英镑。' },
+            { q: '“Have a nice day.” 最合适的中文是？', options: ['明天见', '祝你今天愉快', '请坐'], answer: 1, explain: '这是礼貌结束语。' }
+        ]
+    },
+    {
+        id: 'l6',
+        level: 'Level 6',
+        title: '公园里的小短文',
+        theme: '从句子进入连续阅读',
+        goal: '学习用上下文理解短文，而不是只盯单个单词。',
+        upgrade: '完成这一课后，你已经能读懂非常基础的英文短文，可以开始进入简单英文读物。',
+        text: [
+            { en: 'On Saturday morning, Tom goes to the park.', ipa: '/ɒn ˈsætədeɪ ˈmɔːnɪŋ tɒm ɡəʊz tə ðə pɑːk/', zh: '在星期六早上，汤姆去公园。', tip: 'On Saturday morning = 在星期六早上' },
+            { en: 'He sees green trees and a small lake.', ipa: '/hiː siːz ɡriːn triːz ənd ə smɔːl leɪk/', zh: '他看见绿色的树和一个小湖。', tip: 'see + 人或物 = 看见……' },
+            { en: 'A little boy flies a kite near the water.', ipa: '/ə ˈlɪtl bɔɪ flaɪz ə kaɪt nɪə(r) ðə ˈwɔːtə(r)/', zh: '一个小男孩在水边放风筝。', tip: 'fly a kite = 放风筝' },
+            { en: 'Tom sits on a bench and reads a storybook.', ipa: '/tɒm sɪts ɒn ə bentʃ ənd riːdz ə ˈstɔːribʊk/', zh: '汤姆坐在长椅上读一本故事书。', tip: 'sit on a bench = 坐在长椅上' },
+            { en: 'He feels happy and calm.', ipa: '/hiː fiːlz ˈhæpi ənd kɑːm/', zh: '他感到快乐又平静。', tip: 'feel happy = 感到开心' }
+        ],
+        vocab: [
+            { word: 'park', ipa: '/pɑːk/', zh: '公园', tip: '阅读短文很常见的场景词' },
+            { word: 'tree', ipa: '/triː/', zh: '树', tip: '自然场景高频词' },
+            { word: 'lake', ipa: '/leɪk/', zh: '湖', tip: '比 river 更平静的水域' },
+            { word: 'kite', ipa: '/kaɪt/', zh: '风筝', tip: 'fly a kite = 放风筝' },
+            { word: 'bench', ipa: '/bentʃ/', zh: '长椅', tip: '公园里常见物品' },
+            { word: 'calm', ipa: '/kɑːm/', zh: '平静的', tip: '描写感受的好词' }
+        ],
+        practice: [
+            { q: '汤姆去哪里？', options: ['学校', '公园', '商店'], answer: 1, explain: '第一句明确写了 goes to the park。' },
+            { q: '“flies a kite” 的意思是？', options: ['踢球', '放风筝', '看书'], answer: 1, explain: 'fly a kite = 放风筝。' },
+            { q: '汤姆最后感觉怎么样？', options: ['疲倦和生气', '快乐又平静', '害怕和紧张'], answer: 1, explain: '最后一句是 happy and calm。' },
+            { q: '哪一个词表示“长椅”？', options: ['bench', 'tree', 'water'], answer: 0, explain: 'bench = 长椅。' }
+        ]
+    },
+    {
+        id: 'l7',
+        level: 'Level 7',
+        title: '厨房与三餐',
+        theme: '读懂做饭、吃饭和厨房常用场景',
+        goal: '掌握食物、厨房动作和三餐表达。',
+        upgrade: '完成这一课后，你能看懂最常见的居家饮食短文。',
+        text: [
+            { en: 'Mum is in the kitchen now.', ipa: '/mʌm ɪz ɪn ðə ˈkɪtʃɪn naʊ/', zh: '妈妈现在在厨房里。', tip: 'in the kitchen = 在厨房里' },
+            { en: 'She is making soup and rice.', ipa: '/ʃiː ɪz ˈmeɪkɪŋ suːp ənd raɪs/', zh: '她正在做汤和米饭。', tip: 'be making = 正在做' },
+            { en: 'I wash the tomatoes and carrots.', ipa: '/aɪ wɒʃ ðə təˈmɑːtəʊz ənd ˈkærəts/', zh: '我洗西红柿和胡萝卜。', tip: 'wash vegetables = 洗蔬菜' },
+            { en: 'We eat lunch at twelve o’clock.', ipa: '/wiː iːt lʌntʃ æt twelv əˈklɒk/', zh: '我们十二点吃午饭。', tip: 'eat lunch = 吃午饭' },
+            { en: 'The soup is hot and delicious.', ipa: '/ðə suːp ɪz hɒt ənd dɪˈlɪʃəs/', zh: '这汤又热又好喝。', tip: 'delicious = 好吃的、好喝的' }
+        ],
+        vocab: [
+            { word: 'kitchen', ipa: '/ˈkɪtʃɪn/', zh: '厨房', tip: '家庭生活高频场景词' },
+            { word: 'soup', ipa: '/suːp/', zh: '汤', tip: '做饭短文常见' },
+            { word: 'rice', ipa: '/raɪs/', zh: '米饭', tip: '日常三餐高频词' },
+            { word: 'tomato', ipa: '/təˈmɑːtəʊ/', zh: '西红柿', tip: '常见蔬菜单词' },
+            { word: 'lunch', ipa: '/lʌntʃ/', zh: '午饭', tip: '三餐之一' },
+            { word: 'delicious', ipa: '/dɪˈlɪʃəs/', zh: '美味的', tip: '评价食物时很好用' }
+        ],
+        practice: [
+            { q: '妈妈现在在哪里？', options: ['在厨房里', '在公园里', '在教室里'], answer: 0, explain: '第一句说 Mum is in the kitchen now.' },
+            { q: '“making soup and rice” 的意思是？', options: ['买汤和米饭', '做汤和米饭', '端汤和米饭'], answer: 1, explain: 'make 在这里是“做”。' },
+            { q: '哪一个词表示“午饭”？', options: ['breakfast', 'lunch', 'dinner'], answer: 1, explain: 'lunch = 午饭。' },
+            { q: '“delicious” 最接近哪个意思？', options: ['危险的', '美味的', '便宜的'], answer: 1, explain: 'delicious 是夸食物好吃。' }
+        ]
+    },
+    {
+        id: 'l8',
+        level: 'Level 8',
+        title: '天气与穿衣',
+        theme: '读懂天气和衣服的基础描述',
+        goal: '认识 sunny、rainy、cold、coat 这类阅读高频词。',
+        upgrade: '完成这一课后，你能看懂天气预报式的小短文和穿衣建议。',
+        text: [
+            { en: 'Today is cold and windy.', ipa: '/təˈdeɪ ɪz kəʊld ənd ˈwɪndi/', zh: '今天又冷又有风。', tip: 'cold and windy = 又冷又有风' },
+            { en: 'The sky is grey, and it may rain.', ipa: '/ðə skaɪ ɪz ɡreɪ ənd ɪt meɪ reɪn/', zh: '天空是灰色的，而且可能会下雨。', tip: 'may = 可能' },
+            { en: 'I wear a warm coat and black shoes.', ipa: '/aɪ weə(r) ə wɔːm kəʊt ənd blæk ʃuːz/', zh: '我穿一件暖和的外套和黑鞋子。', tip: 'wear = 穿着' },
+            { en: 'My sister takes a small umbrella.', ipa: '/maɪ ˈsɪstə(r) teɪks ə smɔːl ʌmˈbrelə/', zh: '我妹妹带了一把小伞。', tip: 'take an umbrella = 带伞' },
+            { en: 'We hope the afternoon is sunny.', ipa: '/wiː həʊp ði ˌɑːftəˈnuːn ɪz ˈsʌni/', zh: '我们希望下午是晴天。', tip: 'hope = 希望' }
+        ],
+        vocab: [
+            { word: 'windy', ipa: '/ˈwɪndi/', zh: '有风的', tip: '描述天气常见形容词' },
+            { word: 'rain', ipa: '/reɪn/', zh: '下雨；雨', tip: '既可作名词也可作动词' },
+            { word: 'coat', ipa: '/kəʊt/', zh: '外套', tip: '秋冬衣物高频词' },
+            { word: 'umbrella', ipa: '/ʌmˈbrelə/', zh: '雨伞', tip: '下雨天常见词' },
+            { word: 'sunny', ipa: '/ˈsʌni/', zh: '晴朗的', tip: '天气基础词' },
+            { word: 'hope', ipa: '/həʊp/', zh: '希望', tip: 'I hope ... 很常见' }
+        ],
+        practice: [
+            { q: '今天的天气怎么样？', options: ['晴朗炎热', '寒冷有风', '温暖安静'], answer: 1, explain: '第一句写的是 cold and windy。' },
+            { q: '“wear a warm coat” 的意思是？', options: ['洗一件外套', '穿一件暖和的外套', '买一件外套'], answer: 1, explain: 'wear = 穿着。' },
+            { q: '哪一个词表示“雨伞”？', options: ['umbrella', 'shoe', 'sky'], answer: 0, explain: 'umbrella = 雨伞。' },
+            { q: '“hope” 的中文是？', options: ['希望', '知道', '害怕'], answer: 0, explain: 'hope = 希望。' }
+        ]
+    },
+    {
+        id: 'l9',
+        level: 'Level 9',
+        title: '朋友与爱好',
+        theme: '开始读懂人物描写和兴趣介绍',
+        goal: '积累关于朋友、爱好和性格的表达。',
+        upgrade: '完成这一课后，你能读懂介绍朋友和兴趣爱好的小短文。',
+        text: [
+            { en: 'My best friend is Lily.', ipa: '/maɪ best frend ɪz ˈlɪli/', zh: '我最好的朋友是莉莉。', tip: 'best friend = 最好的朋友' },
+            { en: 'She is quiet, but she is very funny.', ipa: '/ʃiː ɪz ˈkwaɪət bət ʃiː ɪz ˈveri ˈfʌni/', zh: '她很安静，但是也很有趣。', tip: 'but = 但是' },
+            { en: 'She likes drawing and reading comics.', ipa: '/ʃiː laɪks ˈdrɔːɪŋ ənd ˈriːdɪŋ ˈkɒmɪks/', zh: '她喜欢画画和看漫画。', tip: 'drawing / reading 都是兴趣活动' },
+            { en: 'I enjoy playing badminton with her.', ipa: '/aɪ ɪnˈdʒɔɪ ˈpleɪɪŋ ˈbædmɪntən wɪð hɜː(r)/', zh: '我喜欢和她一起打羽毛球。', tip: 'enjoy doing = 喜欢做某事' },
+            { en: 'We often talk about books after class.', ipa: '/wiː ˈɒfn tɔːk əˈbaʊt bʊks ˈɑːftə(r) klɑːs/', zh: '我们经常在课后聊书。', tip: 'talk about = 谈论' }
+        ],
+        vocab: [
+            { word: 'friend', ipa: '/frend/', zh: '朋友', tip: '介绍人物时高频词' },
+            { word: 'quiet', ipa: '/ˈkwaɪət/', zh: '安静的', tip: '人物性格词' },
+            { word: 'funny', ipa: '/ˈfʌni/', zh: '有趣的', tip: '人物描述高频词' },
+            { word: 'drawing', ipa: '/ˈdrɔːɪŋ/', zh: '画画', tip: '兴趣爱好词' },
+            { word: 'comic', ipa: '/ˈkɒmɪk/', zh: '漫画', tip: 'comics 常用复数' },
+            { word: 'badminton', ipa: '/ˈbædmɪntən/', zh: '羽毛球', tip: '常见运动词' }
+        ],
+        practice: [
+            { q: 'Lily 是一个什么样的人？', options: ['安静且有趣', '生气且忙碌', '害羞且悲伤'], answer: 0, explain: '第二句写的是 quiet 和 funny。' },
+            { q: 'Lily 喜欢什么？', options: ['画画和看漫画', '游泳和唱歌', '做饭和旅行'], answer: 0, explain: '第三句给出了她的爱好。' },
+            { q: '“enjoy playing badminton” 的意思是？', options: ['讨厌打羽毛球', '喜欢打羽毛球', '正在学羽毛球'], answer: 1, explain: 'enjoy doing = 喜欢做……' },
+            { q: '“talk about books” 的意思是？', options: ['买书', '谈论书', '借书'], answer: 1, explain: 'talk about = 谈论。' }
+        ]
+    },
+    {
+        id: 'l10',
+        level: 'Level 10',
+        title: '图书馆的一天',
+        theme: '向轻阅读过渡',
+        goal: '学会读懂地点、规则和安静活动相关句子。',
+        upgrade: '完成这一课后，你能更稳定地阅读关于公共场所的小短文。',
+        text: [
+            { en: 'Our school library is on the second floor.', ipa: '/aʊə(r) skuːl ˈlaɪbrəri ɪz ɒn ðə ˈsekənd flɔː(r)/', zh: '我们学校的图书馆在二楼。', tip: 'on the second floor = 在二楼' },
+            { en: 'It is quiet, bright, and full of books.', ipa: '/ɪt ɪz ˈkwaɪət braɪt ənd fʊl əv bʊks/', zh: '那里安静、明亮，而且满是书。', tip: 'full of = 充满' },
+            { en: 'I borrow a book about animals every week.', ipa: '/aɪ ˈbɒrəʊ ə bʊk əˈbaʊt ˈænɪmlz ˈevri wiːk/', zh: '我每周借一本关于动物的书。', tip: 'borrow = 借入' },
+            { en: 'We must speak softly in the library.', ipa: '/wiː mʌst spiːk ˈsɒftli ɪn ðə ˈlaɪbrəri/', zh: '我们在图书馆里必须轻声说话。', tip: 'must = 必须' },
+            { en: 'Reading there makes me peaceful.', ipa: '/ˈriːdɪŋ ðeə(r) meɪks miː ˈpiːsfəl/', zh: '在那里阅读让我觉得平静。', tip: 'make me + 形容词 = 让我感到……' }
+        ],
+        vocab: [
+            { word: 'library', ipa: '/ˈlaɪbrəri/', zh: '图书馆', tip: '阅读场景核心词' },
+            { word: 'second floor', ipa: '/ˈsekənd flɔː(r)/', zh: '二楼', tip: '方位表达很常见' },
+            { word: 'borrow', ipa: '/ˈbɒrəʊ/', zh: '借入', tip: 'borrow 和 lend 要分清' },
+            { word: 'softly', ipa: '/ˈsɒftli/', zh: '轻声地', tip: '公共场合规则词' },
+            { word: 'must', ipa: '/mʌst/', zh: '必须', tip: '规则与要求高频词' },
+            { word: 'peaceful', ipa: '/ˈpiːsfəl/', zh: '平静的', tip: '描述环境和心情' }
+        ],
+        practice: [
+            { q: '图书馆在几楼？', options: ['一楼', '二楼', '三楼'], answer: 1, explain: '第一句写的是 second floor。' },
+            { q: '“borrow a book” 的意思是？', options: ['写一本书', '买一本书', '借一本书'], answer: 2, explain: 'borrow = 借入。' },
+            { q: '在图书馆里应该怎样说话？', options: ['大声说', '轻声说', '不要说英语'], answer: 1, explain: 'must speak softly。' },
+            { q: '“peaceful” 更接近哪个意思？', options: ['平静的', '拥挤的', '危险的'], answer: 0, explain: 'peaceful = 平静的。' }
+        ]
+    },
+    {
+        id: 'l11',
+        level: 'Level 11',
+        title: '周末计划',
+        theme: '读懂将要发生的事情',
+        goal: '认识简单计划表达，开始适应更完整的段落。',
+        upgrade: '完成这一课后，你能看懂简单计划类英语读物片段。',
+        text: [
+            { en: 'This weekend, my family is going to the seaside.', ipa: '/ðɪs ˈwiːkˌend maɪ ˈfæməli ɪz ˈɡəʊɪŋ tə ðə ˈsiːsaɪd/', zh: '这个周末，我们家要去海边。', tip: 'be going to = 将要' },
+            { en: 'We will leave home at eight in the morning.', ipa: '/wiː wɪl liːv həʊm æt eɪt ɪn ðə ˈmɔːnɪŋ/', zh: '我们早上八点出门。', tip: 'leave home = 出门' },
+            { en: 'Dad wants to swim, and I want to collect shells.', ipa: '/dæd wɒnts tə swɪm ənd aɪ wɒnt tə kəˈlekt ʃelz/', zh: '爸爸想游泳，我想捡贝壳。', tip: 'want to do = 想做……' },
+            { en: 'Mum will prepare sandwiches and fruit.', ipa: '/mʌm wɪl prɪˈpeə(r) ˈsænwɪdʒɪz ənd fruːt/', zh: '妈妈会准备三明治和水果。', tip: 'prepare = 准备' },
+            { en: 'I think it will be a happy day.', ipa: '/aɪ θɪŋk ɪt wɪl biː ə ˈhæpi deɪ/', zh: '我觉得那会是快乐的一天。', tip: 'I think ... = 我觉得……' }
+        ],
+        vocab: [
+            { word: 'weekend', ipa: '/ˈwiːkˌend/', zh: '周末', tip: '周计划常见词' },
+            { word: 'seaside', ipa: '/ˈsiːsaɪd/', zh: '海边', tip: '生活阅读常见地点词' },
+            { word: 'leave', ipa: '/liːv/', zh: '离开；出发', tip: 'leave home = 出门' },
+            { word: 'collect', ipa: '/kəˈlekt/', zh: '收集', tip: 'collect shells = 捡贝壳' },
+            { word: 'prepare', ipa: '/prɪˈpeə(r)/', zh: '准备', tip: 'prepare food = 准备食物' },
+            { word: 'sandwich', ipa: '/ˈsænwɪdʒ/', zh: '三明治', tip: '常见野餐食物词' }
+        ],
+        practice: [
+            { q: '这一家人周末要去哪里？', options: ['图书馆', '海边', '动物园'], answer: 1, explain: '第一句明确写了 going to the seaside。' },
+            { q: '“collect shells” 的意思是？', options: ['看海浪', '捡贝壳', '拍照片'], answer: 1, explain: 'collect = 收集，shells = 贝壳。' },
+            { q: '妈妈会准备什么？', options: ['汤和米饭', '三明治和水果', '书和铅笔'], answer: 1, explain: '第四句给出了答案。' },
+            { q: '“I think it will be a happy day.” 表达了什么？', options: ['担心', '期待', '拒绝'], answer: 1, explain: '这是对周末计划的积极期待。' }
+        ]
+    },
+    {
+        id: 'l12',
+        level: 'Level 12',
+        title: '第一篇阅读入门短文',
+        theme: '把基础词句连成一篇完整小阅读',
+        goal: '练习用上下文猜词，形成阅读连贯感。',
+        upgrade: '完成这一课后，你已经进入“能读懂基础英文读物片段”的起点阶段。',
+        text: [
+            { en: 'Lucy loves Sunday mornings because they are slow and warm.', ipa: '/ˈluːsi lʌvz ˈsʌndeɪ ˈmɔːnɪŋz bɪˈkɒz ðeɪ ə sləʊ ənd wɔːm/', zh: '露西喜欢星期天早晨，因为它们慢悠悠而且温暖。', tip: 'because = 因为' },
+            { en: 'She opens the window and hears birds in the garden.', ipa: '/ʃiː ˈəʊpənz ðə ˈwɪndəʊ ənd hɪəz bɜːdz ɪn ðə ˈɡɑːdn/', zh: '她打开窗户，听见花园里的鸟叫。', tip: 'hear birds = 听见鸟叫' },
+            { en: 'After breakfast, she reads a story with a cup of tea.', ipa: '/ˈɑːftə(r) ˈbrekfəst ʃiː riːdz ə ˈstɔːri wɪð ə kʌp əv tiː/', zh: '早餐后，她一边喝茶一边读故事。', tip: 'with a cup of tea = 喝着一杯茶' },
+            { en: 'Her cat sleeps beside the chair in the sunshine.', ipa: '/hɜː(r) kæt sliːps bɪˈsaɪd ðə tʃeə(r) ɪn ðə ˈsʌnʃaɪn/', zh: '她的猫在阳光下睡在椅子旁边。', tip: 'beside = 在……旁边' },
+            { en: 'Lucy thinks small moments can make life beautiful.', ipa: '/ˈluːsi θɪŋks smɔːl ˈməʊmənts kən meɪk laɪf ˈbjuːtəfəl/', zh: '露西觉得，小小的时刻也能让生活变得美好。', tip: 'make life beautiful = 让生活美好' }
+        ],
+        vocab: [
+            { word: 'slow', ipa: '/sləʊ/', zh: '慢慢的', tip: '这里形容节奏慢' },
+            { word: 'window', ipa: '/ˈwɪndəʊ/', zh: '窗户', tip: '生活阅读高频词' },
+            { word: 'garden', ipa: '/ˈɡɑːdn/', zh: '花园', tip: '家庭场景常见' },
+            { word: 'sunshine', ipa: '/ˈsʌnʃaɪn/', zh: '阳光', tip: '描写环境的好词' },
+            { word: 'moment', ipa: '/ˈməʊmənt/', zh: '时刻', tip: '抽象名词，阅读中常出现' },
+            { word: 'beautiful', ipa: '/ˈbjuːtəfəl/', zh: '美好的；美丽的', tip: '既能形容景，也能形容生活' }
+        ],
+        practice: [
+            { q: 'Lucy 为什么喜欢星期天早晨？', options: ['因为要上学', '因为天气总是下雨', '因为节奏慢而且温暖'], answer: 2, explain: '第一句直接解释了原因。' },
+            { q: 'Lucy 早餐后做什么？', options: ['去公园跑步', '喝茶读故事', '买水果'], answer: 1, explain: '第三句给出了答案。' },
+            { q: '猫在哪里睡觉？', options: ['在桌子下面', '在椅子旁边', '在窗外'], answer: 1, explain: '第四句是 beside the chair。' },
+            { q: '最后一句最想表达什么？', options: ['生活很累', '小小的时刻也很美好', '星期天太短'], answer: 1, explain: '这是全文中心意思。' }
+        ]
+    },
+    {
+        id: 'l13',
+        schoolStage: '初中',
+        level: 'Level 13',
+        title: '校园社团与时间安排',
+        theme: '开始读懂更完整的校园活动安排',
+        goal: '理解 club、schedule、practice、join 这类初中常见词。',
+        upgrade: '完成这一课后，你能读懂关于社团活动和一周安排的短文。',
+        text: [
+            { en: 'Our school has a music club and a science club.', ipa: '/aʊə(r) skuːl hæz ə ˈmjuːzɪk klʌb ənd ə ˈsaɪəns klʌb/', zh: '我们学校有音乐社和科学社。', tip: 'has = 有；club = 社团' },
+            { en: 'I joined the science club this term.', ipa: '/aɪ dʒɔɪnd ðə ˈsaɪəns klʌb ðɪs tɜːm/', zh: '这学期我加入了科学社。', tip: 'join = 加入' },
+            { en: 'We meet every Tuesday after class.', ipa: '/wiː miːt ˈevri ˈtjuːzdeɪ ˈɑːftə(r) klɑːs/', zh: '我们每周二课后见面。', tip: 'every Tuesday = 每周二' },
+            { en: 'Our teacher shows us simple experiments.', ipa: '/aʊə(r) ˈtiːtʃə(r) ʃəʊz ʌs ˈsɪmpəl ɪkˈsperɪmənts/', zh: '老师给我们演示简单实验。', tip: 'show sb. = 给某人展示' },
+            { en: 'The club makes school life more interesting.', ipa: '/ðə klʌb meɪks skuːl laɪf mɔːr ˈɪntrəstɪŋ/', zh: '这个社团让学校生活更有趣。', tip: 'make ... more ... = 让……更……' }
+        ],
+        vocab: [
+            { word: 'club', ipa: '/klʌb/', zh: '社团', tip: '初中校园高频词' },
+            { word: 'term', ipa: '/tɜːm/', zh: '学期', tip: 'school term 很常见' },
+            { word: 'experiment', ipa: '/ɪkˈsperɪmənt/', zh: '实验', tip: 'science club 常见词' },
+            { word: 'join', ipa: '/dʒɔɪn/', zh: '加入', tip: 'join a club 高频搭配' },
+            { word: 'schedule', ipa: '/ˈʃedjuːl/', zh: '日程安排', tip: '初中阅读常见词' },
+            { word: 'interesting', ipa: '/ˈɪntrəstɪŋ/', zh: '有趣的', tip: '人物和活动都能用' }
+        ],
+        practice: [
+            { q: '作者加入了什么社团？', options: ['音乐社', '科学社', '篮球社'], answer: 1, explain: '第二句写了 joined the science club。' },
+            { q: '他们什么时候见面？', options: ['每天早上', '每周二课后', '每周五中午'], answer: 1, explain: '第三句给出了时间。' },
+            { q: 'experiment 的意思是？', options: ['练习', '实验', '比赛'], answer: 1, explain: 'science club 常见词。' },
+            { q: '最后一句主要表达什么？', options: ['社团让学校生活更有趣', '学校生活很累', '老师很严格'], answer: 0, explain: '这是全文结论句。' }
+        ]
+    },
+    {
+        id: 'l14',
+        schoolStage: '初中',
+        level: 'Level 14',
+        title: '城市问路与出行',
+        theme: '读懂路线、交通和方位说明',
+        goal: '掌握 turn left、cross、station、museum 这类词。',
+        upgrade: '完成这一课后，你能看懂城市问路和出行说明。',
+        text: [
+            { en: 'Anna wants to visit the city museum on Saturday.', ipa: '/ˈænə wɒnts tə ˈvɪzɪt ðə ˈsɪti mjuˈziːəm ɒn ˈsætədeɪ/', zh: '安娜想在周六去参观城市博物馆。', tip: 'visit the museum = 参观博物馆' },
+            { en: 'She gets off the bus near the train station.', ipa: '/ʃiː ɡets ɒf ðə bʌs nɪə(r) ðə treɪn ˈsteɪʃən/', zh: '她在火车站附近下了公交车。', tip: 'get off = 下车' },
+            { en: 'Then she turns left and walks across the square.', ipa: '/ðen ʃiː tɜːnz left ənd wɔːks əˈkrɒs ðə skweə(r)/', zh: '然后她左转，穿过广场。', tip: 'turn left / walk across' },
+            { en: 'A tall building stands next to the museum.', ipa: '/ə tɔːl ˈbɪldɪŋ stændz nekst tə ðə mjuˈziːəm/', zh: '博物馆旁边有一栋高楼。', tip: 'next to = 在……旁边' },
+            { en: 'At last, she arrives there on time.', ipa: '/ət lɑːst ʃiː əˈraɪvz ðeə(r) ɒn taɪm/', zh: '最后，她准时到了那里。', tip: 'on time = 准时' }
+        ],
+        vocab: [
+            { word: 'museum', ipa: '/mjuˈziːəm/', zh: '博物馆', tip: '城市场景常见词' },
+            { word: 'station', ipa: '/ˈsteɪʃən/', zh: '车站', tip: 'train station 高频搭配' },
+            { word: 'square', ipa: '/skweə(r)/', zh: '广场', tip: '问路场景常见地标' },
+            { word: 'across', ipa: '/əˈkrɒs/', zh: '穿过', tip: '方位和路线常见词' },
+            { word: 'arrive', ipa: '/əˈraɪv/', zh: '到达', tip: 'arrive there / arrive at school' },
+            { word: 'on time', ipa: '/ɒn taɪm/', zh: '准时', tip: '考试和出行常见表达' }
+        ],
+        practice: [
+            { q: 'Anna 周六要去哪里？', options: ['图书馆', '城市博物馆', '电影院'], answer: 1, explain: '第一句给出了地点。' },
+            { q: '她在哪里下车？', options: ['学校门口', '火车站附近', '广场中央'], answer: 1, explain: '第二句明确写了 near the train station。' },
+            { q: 'across the square 的意思是？', options: ['围着广场走', '穿过广场', '离开广场'], answer: 1, explain: 'across = 穿过。' },
+            { q: '“on time” 最接近哪个意思？', options: ['提前', '准时', '迟到'], answer: 1, explain: 'on time = 准时。' }
+        ]
+    },
+    {
+        id: 'l15',
+        schoolStage: '初中',
+        level: 'Level 15',
+        title: '科学课上的观察记录',
+        theme: '开始阅读说明类和观察类短文',
+        goal: '理解 observe、change、result、carefully 这类说明词。',
+        upgrade: '完成这一课后，你能看懂简单实验记录和说明类短文。',
+        text: [
+            { en: 'In science class, we observed how ice changes in warm air.', ipa: '/ɪn ˈsaɪəns klɑːs wiː əbˈzɜːvd haʊ aɪs tʃeɪndʒɪz ɪn wɔːm eə(r)/', zh: '在科学课上，我们观察了冰在暖空气中如何变化。', tip: 'observe = 观察' },
+            { en: 'At first, the ice was hard and cold.', ipa: '/ət fɜːst ði aɪs wɒz hɑːd ənd kəʊld/', zh: '起初，冰又硬又冷。', tip: 'at first = 起初' },
+            { en: 'A few minutes later, water appeared on the plate.', ipa: '/ə fjuː ˈmɪnɪts ˈleɪtə(r) ˈwɔːtə(r) əˈpɪəd ɒn ðə pleɪt/', zh: '几分钟后，盘子上出现了水。', tip: 'appear = 出现' },
+            { en: 'We wrote down the result carefully.', ipa: '/wiː rəʊt daʊn ðə rɪˈzʌlt ˈkeəfəli/', zh: '我们认真地记下了结果。', tip: 'write down = 记下' },
+            { en: 'The experiment taught us that heat can change things.', ipa: '/ði ɪkˈsperɪmənt tɔːt ʌs ðæt hiːt kæn tʃeɪndʒ θɪŋz/', zh: '这个实验告诉我们，热量能够改变物体。', tip: 'teach sb. that... = 让某人明白……' }
+        ],
+        vocab: [
+            { word: 'observe', ipa: '/əbˈzɜːv/', zh: '观察', tip: '初中说明文高频词' },
+            { word: 'change', ipa: '/tʃeɪndʒ/', zh: '变化；改变', tip: 'science texts 高频词' },
+            { word: 'appear', ipa: '/əˈpɪə(r)/', zh: '出现', tip: '观察类短文常见' },
+            { word: 'result', ipa: '/rɪˈzʌlt/', zh: '结果', tip: '实验和考试都常见' },
+            { word: 'carefully', ipa: '/ˈkeəfəli/', zh: '认真地', tip: '副词表达方式' },
+            { word: 'heat', ipa: '/hiːt/', zh: '热量', tip: '自然科学基础词' }
+        ],
+        practice: [
+            { q: '这堂科学课观察了什么？', options: ['植物生长', '冰在暖空气中的变化', '风筝飞行'], answer: 1, explain: '第一句明确写了 how ice changes。' },
+            { q: '几分钟后出现了什么？', options: ['火', '水', '烟'], answer: 1, explain: '第三句出现的是 water。' },
+            { q: 'result 的中文是？', options: ['方法', '结果', '问题'], answer: 1, explain: 'result = 结果。' },
+            { q: '最后一句的核心意思是什么？', options: ['空气很冷', '热量能改变物体', '盘子会融化'], answer: 1, explain: '这是实验结论。' }
+        ]
+    },
+    {
+        id: 'l16',
+        schoolStage: '高中',
+        level: 'Level 16',
+        title: '阅读与个人成长',
+        theme: '开始接触观点型短文',
+        goal: '理解 influence、habit、mind、improve 这类高中基础阅读词。',
+        upgrade: '完成这一课后，你能读懂带有观点和思考的高中基础短文。',
+        text: [
+            { en: 'Reading is more than a school task for many teenagers.', ipa: '/ˈriːdɪŋ ɪz mɔː(r) ðən ə skuːl tɑːsk fə(r) ˈmeni ˈtiːneɪdʒəz/', zh: '对许多青少年来说，阅读不仅仅是一项学校任务。', tip: 'more than = 不仅仅是' },
+            { en: 'Good books can widen the mind and shape healthy habits.', ipa: '/ɡʊd bʊks kæn ˈwaɪdn ðə maɪnd ənd ʃeɪp ˈhelθi ˈhæbɪts/', zh: '好书能够拓宽思维，并塑造健康的习惯。', tip: 'widen the mind = 开阔思维' },
+            { en: 'When students read every day, their language improves naturally.', ipa: '/wen ˈstjuːdnts riːd ˈevri deɪ ðeə(r) ˈlæŋɡwɪdʒ ɪmˈpruːvz ˈnætʃrəli/', zh: '当学生每天阅读时，他们的语言能力会自然提高。', tip: 'improve naturally = 自然提升' },
+            { en: 'They also learn to think with patience and depth.', ipa: '/ðeɪ ˈɔːlsəʊ lɜːn tə θɪŋk wɪð ˈpeɪʃəns ənd depθ/', zh: '他们还会学会更耐心、更深入地思考。', tip: 'with patience and depth = 带着耐心与深度' },
+            { en: 'That is why reading remains important in modern life.', ipa: '/ðæt ɪz waɪ ˈriːdɪŋ rɪˈmeɪnz ɪmˈpɔːtnt ɪn ˈmɒdn laɪf/', zh: '这就是为什么阅读在现代生活中仍然重要。', tip: 'remain important = 仍然重要' }
+        ],
+        vocab: [
+            { word: 'teenager', ipa: '/ˈtiːneɪdʒə(r)/', zh: '青少年', tip: '高中阅读高频词' },
+            { word: 'widen', ipa: '/ˈwaɪdn/', zh: '拓宽', tip: '常和 mind / view 连用' },
+            { word: 'habit', ipa: '/ˈhæbɪt/', zh: '习惯', tip: 'good habits 高频搭配' },
+            { word: 'improve', ipa: '/ɪmˈpruːv/', zh: '提高', tip: '能力提升类文章常见' },
+            { word: 'patience', ipa: '/ˈpeɪʃəns/', zh: '耐心', tip: '抽象品质词' },
+            { word: 'modern', ipa: '/ˈmɒdn/', zh: '现代的', tip: '议论文常见词' }
+        ],
+        practice: [
+            { q: '第一句想表达什么？', options: ['阅读只是学校任务', '阅读不仅仅是学校任务', '青少年不喜欢阅读'], answer: 1, explain: 'more than a school task = 不仅仅是学校任务。' },
+            { q: '好书能做什么？', options: ['拓宽思维并塑造习惯', '让时间变慢', '减少作业'], answer: 0, explain: '第二句给出了两个作用。' },
+            { q: 'patience 的中文是？', options: ['速度', '耐心', '力量'], answer: 1, explain: '高中阅读常见抽象名词。' },
+            { q: '最后一句是全文的什么？', options: ['例子', '中心结论', '时间说明'], answer: 1, explain: '它总结了全文观点。' }
+        ]
+    },
+    {
+        id: 'l17',
+        schoolStage: '高中',
+        level: 'Level 17',
+        title: '环境与责任',
+        theme: '进入主题型阅读和观点理解',
+        goal: '掌握 protect、resource、choice、responsibility 这类词。',
+        upgrade: '完成这一课后，你能读懂环境主题的高中基础短文。',
+        text: [
+            { en: 'Environmental problems are no longer far away from daily life.', ipa: '/ɪnˌvaɪrənˈmentl ˈprɒbləmz ɑː(r) nəʊ ˈlɒŋɡə(r) fɑːr əˈweɪ frəm ˈdeɪli laɪf/', zh: '环境问题已经不再离日常生活很远。', tip: 'no longer = 不再' },
+            { en: 'The air we breathe and the water we drink need protection.', ipa: '/ði eə(r) wiː briːð ənd ðə ˈwɔːtə(r) wiː drɪŋk niːd prəˈtekʃən/', zh: '我们呼吸的空气和饮用的水都需要保护。', tip: 'need protection = 需要保护' },
+            { en: 'Small choices, such as saving paper or using public transport, matter a lot.', ipa: '/smɔːl ˈtʃɔɪsɪz sʌtʃ əz ˈseɪvɪŋ ˈpeɪpə(r) ɔː(r) ˈjuːzɪŋ ˈpʌblɪk ˈtrænspɔːt ˈmætə(r) ə lɒt/', zh: '像节约纸张或使用公共交通这样的小选择，其实很重要。', tip: 'matter a lot = 非常重要' },
+            { en: 'Young people can influence the future through everyday action.', ipa: '/jʌŋ ˈpiːpl kæn ˈɪnfluəns ðə ˈfjuːtʃə(r) θruː ˈevrideɪ ˈækʃən/', zh: '年轻人可以通过日常行动影响未来。', tip: 'influence the future = 影响未来' },
+            { en: 'Responsibility begins when we decide not to ignore a problem.', ipa: '/rɪˌspɒnsəˈbɪləti bɪˈɡɪnz wen wiː dɪˈsaɪd nɒt tə ɪɡˈnɔː(r) ə ˈprɒbləm/', zh: '当我们决定不再忽视问题时，责任感就开始了。', tip: 'not ignore = 不忽视' }
+        ],
+        vocab: [
+            { word: 'environmental', ipa: '/ɪnˌvaɪrənˈmentl/', zh: '环境的', tip: '主题阅读高频词' },
+            { word: 'protection', ipa: '/prəˈtekʃən/', zh: '保护', tip: 'protect 的名词形式' },
+            { word: 'public transport', ipa: '/ˈpʌblɪk ˈtrænspɔːt/', zh: '公共交通', tip: '应用与议论文常见' },
+            { word: 'influence', ipa: '/ˈɪnfluəns/', zh: '影响', tip: '观点表达高频词' },
+            { word: 'responsibility', ipa: '/rɪˌspɒnsəˈbɪləti/', zh: '责任', tip: '高中抽象词' },
+            { word: 'ignore', ipa: '/ɪɡˈnɔː(r)/', zh: '忽视', tip: '阅读中很常见' }
+        ],
+        practice: [
+            { q: '文章认为环境问题离我们远吗？', options: ['很远', '不远了', '只和工厂有关'], answer: 1, explain: '第一句就是 no longer far away。' },
+            { q: '第三句中的 small choices 指什么？', options: ['节约纸张和使用公共交通', '买更多衣服', '多睡觉'], answer: 0, explain: '句中举了两个具体例子。' },
+            { q: 'responsibility 的中文是？', options: ['资源', '责任', '机会'], answer: 1, explain: '高中高频抽象名词。' },
+            { q: '最后一句最想强调什么？', options: ['责任来自主动面对问题', '问题都会消失', '年轻人没有作用'], answer: 0, explain: '这是全文升华句。' }
+        ]
+    },
+    {
+        id: 'l18',
+        schoolStage: '高中',
+        level: 'Level 18',
+        title: '应用英语：邮件与计划',
+        theme: '读懂并写出基础应用文本',
+        goal: '掌握 invitation、arrangement、confirm、contact 这类应用词。',
+        upgrade: '完成这一课后，你能看懂基础邮件、通知和活动安排。',
+        text: [
+            { en: 'Our class will hold a reading activity next Friday afternoon.', ipa: '/aʊə(r) klɑːs wɪl həʊld ə ˈriːdɪŋ ækˈtɪvəti nekst ˈfraɪdeɪ ˌɑːftəˈnuːn/', zh: '我们班下周五下午将举行一次阅读活动。', tip: 'hold an activity = 举办活动' },
+            { en: 'The monitor sent an email to confirm the time and place.', ipa: '/ðə ˈmɒnɪtə(r) sent ən ˈiːmeɪl tə kənˈfɜːm ðə taɪm ənd pleɪs/', zh: '班长发了一封邮件来确认时间和地点。', tip: 'confirm = 确认' },
+            { en: 'Students should prepare one short passage to share.', ipa: '/ˈstjuːdnts ʃʊd prɪˈpeə(r) wʌn ʃɔːt ˈpæsɪdʒ tə ʃeə(r)/', zh: '同学们应准备一段短文来分享。', tip: 'should = 应该' },
+            { en: 'If anyone has questions, they can contact the teacher before Thursday.', ipa: '/ɪf ˈeniwʌn hæz ˈkwestʃənz ðeɪ kæn ˈkɒntækt ðə ˈtiːtʃə(r) bɪˈfɔː(r) ˈθɜːzdeɪ/', zh: '如果有人有问题，可以在周四前联系老师。', tip: 'contact sb. = 联系某人' },
+            { en: 'Clear information makes cooperation much easier.', ipa: '/klɪə(r) ˌɪnfəˈmeɪʃən meɪks kəʊˌɒpəˈreɪʃən mʌtʃ ˈiːziə(r)/', zh: '清晰的信息会让合作容易得多。', tip: 'much easier = 容易得多' }
+        ],
+        vocab: [
+            { word: 'activity', ipa: '/ækˈtɪvəti/', zh: '活动', tip: '学校应用文高频词' },
+            { word: 'email', ipa: '/ˈiːmeɪl/', zh: '电子邮件', tip: '应用场景核心词' },
+            { word: 'confirm', ipa: '/kənˈfɜːm/', zh: '确认', tip: '通知与邮件常见词' },
+            { word: 'passage', ipa: '/ˈpæsɪdʒ/', zh: '短文；篇章', tip: '阅读任务常见词' },
+            { word: 'contact', ipa: '/ˈkɒntækt/', zh: '联系', tip: '应用英语高频词' },
+            { word: 'cooperation', ipa: '/kəʊˌɒpəˈreɪʃən/', zh: '合作', tip: '组织活动和任务常见' }
+        ],
+        practice: [
+            { q: '下周五下午会举行什么？', options: ['运动会', '阅读活动', '音乐比赛'], answer: 1, explain: '第一句明确写了 reading activity。' },
+            { q: '班长发邮件是为了什么？', options: ['取消活动', '确认时间和地点', '借书'], answer: 1, explain: '第二句给出了目的。' },
+            { q: '如果有问题，学生应该怎么做？', options: ['写日记', '联系老师', '等待通知'], answer: 1, explain: '第四句写了 contact the teacher。' },
+            { q: '最后一句强调了什么？', options: ['清晰信息让合作更容易', '邮件很难写', '活动不重要'], answer: 0, explain: '这是应用文本里的核心意识。' }
+        ]
+    }
+];
+
+lessons.forEach((lesson, index) => {
+    if (!lesson.schoolStage) {
+        lesson.schoolStage = index < 12 ? '小学' : index < 15 ? '初中' : '高中';
+    }
+});
+
+const stageTests = [
+    {
+        id: 's1',
+        title: '阶段测试 1：基础生活句',
+        desc: '覆盖 Level 1 到 Level 4，检查你是否已经能读懂自我介绍、家庭、作息和学校场景。',
+        range: [0, 3],
+        questions: [
+            { q: '“I am from London.” 最准确的中文是？', options: ['我喜欢伦敦', '我来自伦敦', '我住在学校'], answer: 1, explain: 'from 表示“来自”。' },
+            { q: '“years old” 常用来表达什么？', options: ['天气', '年龄', '时间'], answer: 1, explain: 'years old = 几岁。' },
+            { q: '“brush my teeth” 指的是？', options: ['刷牙', '梳头', '洗脸'], answer: 0, explain: 'teeth = 牙齿。' },
+            { q: '“ask questions” 的意思是？', options: ['提问题', '写作业', '借书'], answer: 0, explain: '课堂里很常见的动作。' },
+            { q: '哪一个词表示“家庭作业”？', options: ['classroom', 'teacher', 'homework'], answer: 2, explain: 'homework = 家庭作业。' }
+        ]
+    },
+    {
+        id: 's2',
+        title: '阶段测试 2：生活场景阅读',
+        desc: '覆盖 Level 5 到 Level 8，重点检查购物、天气、厨房和生活词汇的理解。',
+        range: [4, 7],
+        questions: [
+            { q: '“How much is this bag?” 是什么类型的问题？', options: ['问地点', '问价格', '问颜色'], answer: 1, explain: 'How much is ...? 是问价格。' },
+            { q: '“delicious” 常用来形容什么？', options: ['食物很好吃', '天气很冷', '动作很快'], answer: 0, explain: 'delicious 用来夸食物。' },
+            { q: '“umbrella” 的中文是？', options: ['帽子', '雨伞', '围巾'], answer: 1, explain: '下雨场景高频词。' },
+            { q: '“kitchen” 指的是家里的哪里？', options: ['卧室', '厨房', '阳台'], answer: 1, explain: 'kitchen = 厨房。' },
+            { q: '“sunny” 的意思是？', options: ['晴朗的', '吵闹的', '便宜的'], answer: 0, explain: 'sunny 是基础天气词。' }
+        ]
+    },
+    {
+        id: 's3',
+        title: '阶段测试 3：阅读入门闯关',
+        desc: '覆盖 Level 9 到 Level 12，检查你是否开始具备连续阅读、抓住主旨和上下文理解能力。',
+        range: [8, 11],
+        questions: [
+            { q: '“quiet, but funny” 描写的是？', options: ['天气', '人物性格', '学校规则'], answer: 1, explain: '这是在描写朋友的性格。' },
+            { q: '在图书馆里，我们应该怎样说话？', options: ['轻声说', '大声唱歌', '不要看书'], answer: 0, explain: 'We must speak softly in the library.' },
+            { q: '“be going to the seaside” 的意思是？', options: ['正在游泳', '将要去海边', '已经回家'], answer: 1, explain: 'be going to 表示将要。' },
+            { q: 'Lucy 早餐后做什么？', options: ['读故事并喝茶', '去商店买衣服', '写数学作业'], answer: 0, explain: '短文第三句给出了答案。' },
+            { q: '最后一句 “small moments can make life beautiful” 的核心意思是？', options: ['生活很贵', '小事也能让生活美好', '露西想去旅行'], answer: 1, explain: '这是阅读短文的主旨句。' }
+        ]
+    },
+    {
+        id: 's4',
+        title: '阶段测试 4：初中英语综合',
+        desc: '覆盖 Level 13 到 Level 15，检查你是否能读懂社团、问路和观察记录类段落。',
+        range: [12, 14],
+        questions: [
+            { q: 'join the science club 的意思是？', options: ['离开科学社', '加入科学社', '参观科学馆'], answer: 1, explain: 'join = 加入。' },
+            { q: 'across the square 最准确的中文是？', options: ['在广场旁边', '穿过广场', '离开广场'], answer: 1, explain: 'across = 穿过。' },
+            { q: '在实验观察中，几分钟后盘子上出现了什么？', options: ['火', '冰', '水'], answer: 2, explain: '第三句写的是 water appeared。' },
+            { q: 'result 的中文是？', options: ['结果', '资源', '规则'], answer: 0, explain: '实验与说明文高频词。' },
+            { q: '这些初中课程主要训练什么？', options: ['只背单词', '读懂说明和生活段落', '只写作文'], answer: 1, explain: '这组课程强调段落理解。' }
+        ]
+    },
+    {
+        id: 's5',
+        title: '阶段测试 5：高中英语综合',
+        desc: '覆盖 Level 16 到 Level 18，检查你是否能理解观点、责任和应用文本。',
+        range: [15, 17],
+        questions: [
+            { q: '文章 “阅读与个人成长” 中，阅读有什么作用？', options: ['拓宽思维并塑造习惯', '让作业减少', '让时间停止'], answer: 0, explain: '第二句给出了两个核心作用。' },
+            { q: '环境短文中，small choices 指的是什么？', options: ['节约纸张和公共交通', '购买更多零食', '不去学校'], answer: 0, explain: '第三句列出了两个例子。' },
+            { q: 'confirm the time and place 的意思是？', options: ['改变时间地点', '确认时间地点', '忘记时间地点'], answer: 1, explain: 'confirm = 确认。' },
+            { q: 'responsibility 的中文是？', options: ['责任', '能力', '友谊'], answer: 0, explain: '高中主题阅读高频词。' },
+            { q: '高中阶段的重点能力是什么？', options: ['只记口语句子', '理解观点并读懂应用文本', '只会看图选词'], answer: 1, explain: '这组课程已经进入观点和应用阅读。' }
+        ]
+    }
+];
+
+const state = loadState();
+let currentLessonIndex = state.currentLessonIndex || 0;
+
+function loadState() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : { completed: [], stageCompleted: [], currentLessonIndex: 0 };
+    } catch (err) {
+        return { completed: [], stageCompleted: [], currentLessonIndex: 0 };
+    }
+}
+
+function saveState() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function pickBritishVoice() {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    return voices.find(v => v.lang === 'en-GB')
+        || voices.find(v => /^en-GB/i.test(v.lang))
+        || voices.find(v => /^en/i.test(v.lang))
+        || null;
+}
+
+function speakEnglish(text, rate = 0.72) {
+    if (!('speechSynthesis' in window)) return;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-GB';
+    utter.rate = rate;
+    utter.pitch = 1;
+    const voice = pickBritishVoice();
+    if (voice) utter.voice = voice;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+}
+
+function renderSidebar() {
+    const completed = new Set(state.completed || []);
+    document.getElementById('lessonList').innerHTML = lessons.map((lesson, index) => `
+        <button class="lesson-btn ${index === currentLessonIndex ? 'active' : ''} ${completed.has(lesson.id) ? 'done' : ''}" type="button" onclick="openLesson(${index})">
+            <div class="lesson-level">${lesson.schoolStage} · ${lesson.level}${completed.has(lesson.id) ? ' · 已完成' : ''}</div>
+            <div class="lesson-name">${lesson.title}</div>
+            <div class="lesson-meta">${lesson.theme}<br>${lesson.goal}</div>
+        </button>
+    `).join('');
+}
+
+function renderProgress() {
+    const doneCount = (state.completed || []).length;
+    const percent = Math.round(doneCount / lessons.length * 100);
+    document.getElementById('heroProgress').style.width = percent + '%';
+}
+
+function getCurrentStageIndex() {
+    if (currentLessonIndex <= 3) return 0;
+    if (currentLessonIndex <= 7) return 1;
+    if (currentLessonIndex <= 11) return 2;
+    if (currentLessonIndex <= 14) return 3;
+    return 4;
+}
+
+function renderLesson() {
+    const lesson = lessons[currentLessonIndex];
+    state.currentLessonIndex = currentLessonIndex;
+    saveState();
+
+    document.getElementById('lessonTitle').textContent = `${lesson.level} · ${lesson.title}`;
+    document.getElementById('lessonSub').textContent = `${lesson.theme}。${lesson.goal}`;
+    document.getElementById('upgradeTip').textContent = `升级目标：${lesson.upgrade}`;
+
+    document.getElementById('summaryGrid').innerHTML = `
+        <div class="summary-card">
+            <div class="label">所属学段</div>
+            <div class="value">${lesson.schoolStage}</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">学习主题</div>
+            <div class="value">${lesson.theme}</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">本课目标</div>
+            <div class="value">${lesson.goal}</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">句子数量</div>
+            <div class="value">${lesson.text.length} 句</div>
+        </div>
+        <div class="summary-card">
+            <div class="label">重点词汇</div>
+            <div class="value">${lesson.vocab.length} 个</div>
+        </div>
+    `;
+
+    document.getElementById('sentenceList').innerHTML = lesson.text.map((item, idx) => `
+        <div class="sentence-card">
+            <div class="sentence-top">
+                <div>
+                    <div class="sentence-en">${idx + 1}. ${item.en}</div>
+                    <div class="sentence-ipa">${item.ipa}</div>
+                    <div class="sentence-zh">${item.zh}</div>
+                    <div class="mini-tag">读句提示：${item.tip}</div>
+                </div>
+                <div class="toolbar">
+                    <button class="btn btn-primary" type="button" onclick="speakEnglish('${escapeJs(item.en)}', 0.66)">慢读</button>
+                    <button class="btn btn-light" type="button" onclick="speakEnglish('${escapeJs(item.en)}', 0.82)">正常读</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    document.getElementById('vocabGrid').innerHTML = lesson.vocab.map(item => `
+        <div class="vocab-card">
+            <div class="vocab-word">${item.word}</div>
+            <div class="vocab-ipa">${item.ipa}</div>
+            <div class="vocab-zh">${item.zh}</div>
+            <div class="vocab-tip">记忆提示：${item.tip}</div>
+        </div>
+    `).join('');
+
+    document.getElementById('practiceList').innerHTML = lesson.practice.map((item, idx) => `
+        <div class="question-card">
+            <div class="question-title">${idx + 1}. ${item.q}</div>
+            <div class="option-list">
+                ${item.options.map((option, optionIdx) => `
+                    <label class="option-item">
+                        <input type="radio" name="q_${idx}" value="${optionIdx}">
+                        <span>${option}</span>
+                    </label>
+                `).join('')}
+            </div>
+            <div class="question-result" id="result_${idx}">答题后这里会显示解释。</div>
+        </div>
+    `).join('');
+
+    document.getElementById('scoreBox').textContent = '本课练习未提交';
+    document.getElementById('prevBtn').disabled = currentLessonIndex === 0;
+    document.getElementById('nextBtn').disabled = currentLessonIndex === lessons.length - 1;
+    renderStageTest();
+    renderSidebar();
+    renderProgress();
+}
+
+function renderStageTest() {
+    const stage = stageTests[getCurrentStageIndex()];
+    const done = new Set(state.stageCompleted || []);
+    document.getElementById('stageTitle').textContent = stage.title;
+    document.getElementById('stageDesc').textContent = stage.desc;
+    document.getElementById('stageTag').textContent = done.has(stage.id) ? '本阶段已通过' : '当前阶段待闯关';
+    document.getElementById('stagePracticeList').innerHTML = stage.questions.map((item, idx) => `
+        <div class="question-card">
+            <div class="question-title">${idx + 1}. ${item.q}</div>
+            <div class="option-list">
+                ${item.options.map((option, optionIdx) => `
+                    <label class="option-item">
+                        <input type="radio" name="stage_q_${idx}" value="${optionIdx}">
+                        <span>${option}</span>
+                    </label>
+                `).join('')}
+            </div>
+            <div class="question-result" id="stage_result_${idx}">答题后这里会显示解释。</div>
+        </div>
+    `).join('');
+    document.getElementById('stageScoreBox').textContent = '阶段测试未提交';
+}
+
+function checkAnswers() {
+    const lesson = lessons[currentLessonIndex];
+    let score = 0;
+    lesson.practice.forEach((item, idx) => {
+        const picked = document.querySelector(`input[name="q_${idx}"]:checked`);
+        const resultEl = document.getElementById(`result_${idx}`);
+        if (!picked) {
+            resultEl.textContent = `还没有选择答案。提示：${item.explain}`;
+            return;
+        }
+        const answer = Number(picked.value);
+        if (answer === item.answer) {
+            score += 1;
+            resultEl.textContent = `答对了。${item.explain}`;
+            resultEl.style.color = '#1d7a46';
+        } else {
+            resultEl.textContent = `这题答错了。正确答案是“${item.options[item.answer]}”。${item.explain}`;
+            resultEl.style.color = '#c2410c';
+        }
+    });
+    document.getElementById('scoreBox').textContent = `本课得分：${score} / ${lesson.practice.length}`;
+}
+
+function checkStageAnswers() {
+    const stage = stageTests[getCurrentStageIndex()];
+    let score = 0;
+    stage.questions.forEach((item, idx) => {
+        const picked = document.querySelector(`input[name="stage_q_${idx}"]:checked`);
+        const resultEl = document.getElementById(`stage_result_${idx}`);
+        if (!picked) {
+            resultEl.textContent = `还没有选择答案。提示：${item.explain}`;
+            resultEl.style.color = '#667085';
+            return;
+        }
+        const answer = Number(picked.value);
+        if (answer === item.answer) {
+            score += 1;
+            resultEl.textContent = `答对了。${item.explain}`;
+            resultEl.style.color = '#1d7a46';
+        } else {
+            resultEl.textContent = `这题答错了。正确答案是“${item.options[item.answer]}”。${item.explain}`;
+            resultEl.style.color = '#c2410c';
+        }
+    });
+    const passed = score >= Math.ceil(stage.questions.length * 0.6);
+    if (passed) {
+        state.stageCompleted = Array.from(new Set([...(state.stageCompleted || []), stage.id]));
+        saveState();
+    }
+    document.getElementById('stageTag').textContent = passed ? '本阶段已通过' : '当前阶段待闯关';
+    document.getElementById('stageScoreBox').textContent = `阶段得分：${score} / ${stage.questions.length}${passed ? ' · 已通过' : ' · 继续加油'}`;
+}
+
+function resetPractice() {
+    document.querySelectorAll('#practiceList input[type="radio"]').forEach(input => {
+        input.checked = false;
+    });
+    lessons[currentLessonIndex].practice.forEach((_, idx) => {
+        const resultEl = document.getElementById(`result_${idx}`);
+        resultEl.textContent = '答题后这里会显示解释。';
+        resultEl.style.color = '#667085';
+    });
+    document.getElementById('scoreBox').textContent = '本课练习未提交';
+}
+
+function resetStagePractice() {
+    document.querySelectorAll('#stagePracticeList input[type="radio"]').forEach(input => {
+        input.checked = false;
+    });
+    const stage = stageTests[getCurrentStageIndex()];
+    stage.questions.forEach((_, idx) => {
+        const resultEl = document.getElementById(`stage_result_${idx}`);
+        resultEl.textContent = '答题后这里会显示解释。';
+        resultEl.style.color = '#667085';
+    });
+    document.getElementById('stageScoreBox').textContent = '阶段测试未提交';
+}
+
+function openLesson(index) {
+    currentLessonIndex = index;
+    renderLesson();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function markDone() {
+    const lesson = lessons[currentLessonIndex];
+    state.completed = Array.from(new Set([...(state.completed || []), lesson.id]));
+    saveState();
+    renderSidebar();
+    renderProgress();
+    document.getElementById('scoreBox').textContent = `已标记完成：${lesson.title}`;
+}
+
+function escapeJs(text) {
+    return String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+}
+
+document.getElementById('checkBtn').addEventListener('click', checkAnswers);
+document.getElementById('resetBtn').addEventListener('click', resetPractice);
+document.getElementById('checkStageBtn').addEventListener('click', checkStageAnswers);
+document.getElementById('resetStageBtn').addEventListener('click', resetStagePractice);
+document.getElementById('doneBtn').addEventListener('click', markDone);
+document.getElementById('prevBtn').addEventListener('click', () => {
+    if (currentLessonIndex > 0) openLesson(currentLessonIndex - 1);
+});
+document.getElementById('nextBtn').addEventListener('click', () => {
+    if (currentLessonIndex < lessons.length - 1) openLesson(currentLessonIndex + 1);
+});
+
+renderSidebar();
+renderProgress();
+renderLesson();
+</script>
+</body>
+</html>
